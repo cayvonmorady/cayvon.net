@@ -11,7 +11,7 @@ export const resumeData: ResumeSiteData = {
   experience: [
     {
       company: "Twitch, Inc.",
-      role: "SENIOR TECHNICAL PROGRAM MANAGER, MARTECH",
+      role: "Senior Technical Program Manager, MarTech",
       start: "DEC 2023",
       end: "CURRENT",
       highlights: [
@@ -23,7 +23,7 @@ export const resumeData: ResumeSiteData = {
     },
     {
       company: "Twitch, Inc.",
-      role: "TECHNICAL PROGRAM MANAGER, MARTECH",
+      role: "Technical Program Manager, MarTech",
       start: "MAY 2021",
       end: "DEC 2023",
       highlights: [
@@ -34,7 +34,7 @@ export const resumeData: ResumeSiteData = {
     },
     {
       company: "Twitch, Inc.",
-      role: "PERFORMANCE MARKETING MANAGER, MARTECH",
+      role: "Performance Marketing Manager, MarTech",
       start: "AUG 2019",
       end: "MAY 2021",
       highlights: [
@@ -45,8 +45,8 @@ export const resumeData: ResumeSiteData = {
       ],
     },
     {
-      company: "FETCH MEDIA, INC.",
-      role: "PERFORMANCE MARKETING",
+      company: "Fetch Media, Inc.",
+      role: "Performance Marketing",
       start: "FEB 2016",
       end: "MAY 2019",
       highlights: [
