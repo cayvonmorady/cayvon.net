@@ -10,7 +10,7 @@ export const resumeData: ResumeSiteData = {
     "Technical program leader with experience across marketing technology, performance growth, and cross-functional execution. I build operating models, align Product and Engineering organizations, and ship high-impact initiatives from strategy through production.",
   experience: [
     {
-      company: "TWITCH, INC.",
+      company: "Twitch, Inc.",
       role: "SENIOR TECHNICAL PROGRAM MANAGER, MARTECH",
       start: "DEC 2023",
       end: "CURRENT",
@@ -22,7 +22,7 @@ export const resumeData: ResumeSiteData = {
       ],
     },
     {
-      company: "TWITCH, INC.",
+      company: "Twitch, Inc.",
       role: "TECHNICAL PROGRAM MANAGER, MARTECH",
       start: "MAY 2021",
       end: "DEC 2023",
@@ -33,7 +33,7 @@ export const resumeData: ResumeSiteData = {
       ],
     },
     {
-      company: "TWITCH, INC.",
+      company: "Twitch, Inc.",
       role: "PERFORMANCE MARKETING MANAGER, MARTECH",
       start: "AUG 2019",
       end: "MAY 2021",

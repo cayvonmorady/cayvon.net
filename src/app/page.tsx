@@ -7,6 +7,25 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-bg text-fg">
       <div className="relative overflow-hidden">
+        <div className="fixed right-4 top-4 z-50 flex items-center gap-2 sm:right-6 sm:top-6">
+          <ThemeToggle />
+          <a
+            href="https://linkedin.com/in/morady"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Visit Cayvon Morady on LinkedIn"
+            className="inline-flex min-h-11 min-w-11 items-center justify-center rounded-full border border-black/10 bg-card p-2 text-muted transition-colors duration-150 hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+          >
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 24 24"
+              className="h-5 w-5 fill-current"
+            >
+              <path d="M4.98 3.5a2.5 2.5 0 1 0 0 5 2.5 2.5 0 0 0 0-5ZM3 9h4v12H3V9Zm7 0h3.83v1.64h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.09V21h-4v-5.59c0-1.33-.02-3.03-1.85-3.03-1.85 0-2.13 1.45-2.13 2.94V21h-4V9Z" />
+            </svg>
+          </a>
+        </div>
+
         <div className="pointer-events-none absolute inset-0">
           <div className="absolute -left-20 -top-16 h-64 w-64 rounded-full bg-[radial-gradient(circle,var(--bloom-accent),transparent_72%)] opacity-80 blur-2xl sm:-left-24 sm:top-2 sm:h-[22rem] sm:w-[22rem] sm:opacity-90 sm:blur-3xl xl:-left-14 xl:top-8 xl:h-[26rem] xl:w-[26rem]" />
           <div className="absolute -right-20 top-[62%] h-56 w-56 rounded-full bg-[radial-gradient(circle,var(--bloom-neutral),transparent_72%)] opacity-70 blur-2xl sm:-right-20 sm:top-[56%] sm:h-[20rem] sm:w-[20rem] sm:opacity-85 sm:blur-3xl xl:-right-10 xl:top-[58%] xl:h-[24rem] xl:w-[24rem]" />
@@ -44,7 +63,6 @@ export default function Home() {
                   Education
                 </a>
               </nav>
-              <ThemeToggle />
             </div>
           </div>
         </header>
