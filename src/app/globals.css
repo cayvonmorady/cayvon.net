@@ -12,6 +12,8 @@
   --ring: #0f766e;
   --bloom-accent: rgba(15, 118, 110, 0.22);
   --bloom-neutral: rgba(15, 23, 42, 0.14);
+  --theme-toggle-duration: 700ms;
+  --theme-toggle-ease: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 .dark {
@@ -53,3 +55,222 @@ body {
 ::selection {
   background: color-mix(in oklab, var(--accent) 35%, transparent);
 }
+
+.theme-toggle {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.theme-toggle__sky {
+  display: none;
+}
+
+.theme-toggle__icon-wrap {
+  position: relative;
+  z-index: 1;
+  height: 1.25rem;
+  width: 1.25rem;
+}
+
+.theme-toggle__sun,
+.theme-toggle__moon {
+  position: absolute;
+  inset: 0;
+  transition:
+    opacity 220ms var(--theme-toggle-ease),
+    transform 220ms var(--theme-toggle-ease),
+    filter 220ms var(--theme-toggle-ease);
+}
+
+.theme-toggle__sun {
+  color: color-mix(in oklab, var(--accent-strong) 74%, #f59e0b 26%);
+}
+
+.theme-toggle__moon {
+  color: color-mix(in oklab, var(--fg) 84%, #93c5fd 16%);
+}
+
+.theme-toggle.is-light .theme-toggle__sun {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: drop-shadow(0 0 0.4rem color-mix(in oklab, var(--accent) 26%, transparent));
+}
+
+.theme-toggle.is-light .theme-toggle__moon {
+  opacity: 0;
+  transform: translateY(-32%) scale(0.7);
+}
+
+.theme-toggle.is-dark .theme-toggle__sun {
+  opacity: 0;
+  transform: translateY(32%) scale(0.72);
+}
+
+.theme-toggle.is-dark .theme-toggle__moon {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: drop-shadow(0 0 0.45rem color-mix(in oklab, var(--accent) 14%, #93c5fd 36%));
+}
+
+.theme-toggle--sunrise .theme-toggle__sun {
+  animation: toggle-sunrise var(--theme-toggle-duration) var(--theme-toggle-ease) both;
+}
+
+.theme-toggle--sunrise .theme-toggle__moon {
+  animation: toggle-moon-fade var(--theme-toggle-duration) var(--theme-toggle-ease) both;
+}
+
+.theme-toggle--sunrise .theme-toggle__sky {
+  display: none;
+}
+
+.theme-toggle--sundown .theme-toggle__sun {
+  animation: toggle-sun-fade var(--theme-toggle-duration) var(--theme-toggle-ease) both;
+}
+
+.theme-toggle--sundown .theme-toggle__moon {
+  animation: toggle-moon-rise var(--theme-toggle-duration) var(--theme-toggle-ease) both;
+}
+
+.theme-toggle--sundown .theme-toggle__sky {
+  display: none;
+}
+
+@keyframes toggle-sunrise {
+  0% {
+    opacity: 0;
+    transform: translateY(42%) scale(0.62);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  55% {
+    opacity: 1;
+    transform: translateY(-4%) scale(1.08);
+    filter: drop-shadow(0 0 0.65rem color-mix(in oklab, var(--accent) 42%, #f59e0b 58%));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0.4rem color-mix(in oklab, var(--accent) 26%, transparent));
+  }
+}
+
+@keyframes toggle-sundown {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(42%) scale(0.64);
+  }
+}
+
+@keyframes toggle-moon-rise {
+  0% {
+    opacity: 0;
+    transform: translateY(-42%) scale(0.7);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+
+  60% {
+    opacity: 1;
+    transform: translateY(2%) scale(1.04);
+    filter: drop-shadow(0 0 0.6rem color-mix(in oklab, var(--accent) 12%, #93c5fd 56%));
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0.45rem color-mix(in oklab, var(--accent) 14%, #93c5fd 36%));
+  }
+}
+
+@keyframes toggle-moon-fade {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(-38%) scale(0.72);
+  }
+}
+
+@keyframes toggle-sky-sunrise {
+  0% {
+    opacity: 0.38;
+    transform: scale(0.94);
+  }
+
+  50% {
+    opacity: 0.58;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.44;
+    transform: scale(0.96);
+  }
+}
+
+@keyframes toggle-sky-sundown {
+  0% {
+    opacity: 0.44;
+    transform: scale(0.96);
+  }
+
+  50% {
+    opacity: 0.56;
+    transform: scale(1);
+  }
+
+  100% {
+    opacity: 0.4;
+    transform: scale(0.95);
+  }
+}
+
+@keyframes toggle-sun-fade {
+  0% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: drop-shadow(0 0 0.4rem color-mix(in oklab, var(--accent) 26%, transparent));
+  }
+
+  100% {
+    opacity: 0;
+    transform: translateY(36%) scale(0.7);
+    filter: drop-shadow(0 0 0 transparent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .theme-toggle__sun,
+  .theme-toggle__moon,
+  .theme-toggle__sky {
+    transition:
+      opacity 120ms linear,
+      transform 120ms linear,
+      filter 120ms linear;
+  }
+
+  .theme-toggle.is-light .theme-toggle__moon,
+  .theme-toggle.is-dark .theme-toggle__sun {
+    transform: scale(0.82);
+  }
+
+  .theme-toggle--sunrise .theme-toggle__sun,
+  .theme-toggle--sunrise .theme-toggle__moon,
+  .theme-toggle--sunrise .theme-toggle__sky,
+  .theme-toggle--sundown .theme-toggle__sun,
+  .theme-toggle--sundown .theme-toggle__moon,
+  .theme-toggle--sundown .theme-toggle__sky {
+    animation: none;
+  }
+}
+
