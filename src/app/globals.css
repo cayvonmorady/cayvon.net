@@ -10,6 +10,8 @@
   --accent: #0f766e;
   --accent-strong: #0b5f59;
   --ring: #0f766e;
+  --bloom-accent: rgba(15, 118, 110, 0.22);
+  --bloom-neutral: rgba(15, 23, 42, 0.14);
 }
 
 .dark {
@@ -20,6 +22,8 @@
   --accent: #5eead4;
   --accent-strong: #2dd4bf;
   --ring: #5eead4;
+  --bloom-accent: rgba(94, 234, 212, 0.24);
+  --bloom-neutral: rgba(148, 163, 184, 0.16);
 }
 
 @theme inline {

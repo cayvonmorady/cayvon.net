@@ -1,6 +1,7 @@
 "use client";
 
 import { useId, useState } from "react";
+import { ChevronDownIcon } from "@heroicons/react/24/solid";
 import type { ExperienceItem } from "@/types/resume";
 
 type ExperienceCardProps = {
@@ -45,12 +46,10 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
           className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-card px-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted transition-colors duration-150 hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:hidden"
         >
           <span>{isExpanded ? "Show less" : "Show more"}</span>
-          <span
+          <ChevronDownIcon
             aria-hidden="true"
-            className={`text-[10px] transition-transform duration-150 ${isExpanded ? "rotate-180" : ""}`}
-          >
-            v
-          </span>
+            className={`h-3 w-3 transition-transform duration-150 ${isExpanded ? "rotate-180" : ""}`}
+          />
         </button>
       ) : null}
 

@@ -60,7 +60,7 @@ export const resumeData: ResumeSiteData = {
   ],
   skills: [
     {
-      category: "Program Management",
+      category: "Program Management & Marketing",
       items: [
         "cross-functional partnership",
         "multi-stakeholder programs",
@@ -70,10 +70,10 @@ export const resumeData: ResumeSiteData = {
       ],
     },
     {
-      category: "MarTech & AI",
+      category: "Infra & AI",
       items: [
-        "marketing technology operations",
-        "Claude-powered agentic coding workflows",
+        "AWS",
+        "Agentic coding workflows",
         "Amazon Bedrock",
         "GitHub",
         "front-end solutions",

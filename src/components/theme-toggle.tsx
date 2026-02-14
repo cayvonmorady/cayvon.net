@@ -1,10 +1,17 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useTheme } from "next-themes";
 
 export function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
-  const isDark = resolvedTheme === "dark";
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  const isDark = mounted && resolvedTheme === "dark";
   const label = isDark ? "Switch to light mode" : "Switch to dark mode";
 
   return (
