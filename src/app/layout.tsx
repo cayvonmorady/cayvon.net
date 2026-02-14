@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
-import { Google_Sans_Flex } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const bodyFont = Google_Sans_Flex({
-  subsets: ["latin"],
+const bodyFont = localFont({
+  src: "./fonts/GoogleSansFlex-Variable.ttf",
   variable: "--font-body",
-  weight: "variable",
-  axes: ["opsz", "wdth", "GRAD"],
-  adjustFontFallback: false,
+  display: "swap",
+  weight: "100 900",
+  style: "normal",
 });
 
 export const metadata: Metadata = {
