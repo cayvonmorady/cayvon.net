@@ -13,7 +13,7 @@ const bodyFont = Google_Sans_Flex({
 
 export const metadata: Metadata = {
   title: "Cayvon's Resume",
-  description: "Cayvon's 2026 resume.",
+  description: "The personal resume of Cayvon Morady.",
   icons: {
     icon: [{ url: "/academic-cap.svg", type: "image/svg+xml" }],
     shortcut: ["/academic-cap.svg"],
