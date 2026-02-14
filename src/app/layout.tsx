@@ -12,8 +12,12 @@ const bodyFont = Google_Sans_Flex({
 });
 
 export const metadata: Metadata = {
-  title: "Privacy-Safe Resume",
-  description: "A privacy-safe, single-page resume built with Next.js and Tailwind.",
+  title: "Cayvon's Resume",
+  description: "Cayvon's 2026 resume.",
+  icons: {
+    icon: [{ url: "/academic-cap.svg", type: "image/svg+xml" }],
+    shortcut: ["/academic-cap.svg"],
+  },
 };
 
 export default function RootLayout({
