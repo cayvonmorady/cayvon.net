@@ -18,10 +18,16 @@ export type EducationItem = {
   notes: string[];
 };
 
+export type Headline = {
+  currentTitle: string;
+  currentCompany: string;
+};
+
 export type ResumeSiteData = {
-  headline: string;
+  headline: Headline;
   summary: string;
   experience: ExperienceItem[];
   skills: SkillGroup[];
   education: EducationItem[];
 };
+

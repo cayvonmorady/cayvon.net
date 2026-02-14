@@ -1,7 +1,11 @@
 import type { ResumeSiteData } from "@/types/resume";
 
 export const resumeData: ResumeSiteData = {
-  headline: "SENIOR TECHNICAL PROGRAM MANAGER, MARTECH TWITCH, INC.",
+  headline: {
+    currentTitle: "Senior Technical Program Manager",
+
+    currentCompany: "Twitch, Inc.",
+  },
   summary:
     "Technical program leader with experience across marketing technology, performance growth, and cross-functional execution. I build operating models, align Product and Engineering organizations, and ship high-impact initiatives from strategy through production.",
   experience: [
@@ -98,3 +102,4 @@ export const resumeData: ResumeSiteData = {
     },
   ],
 };
+

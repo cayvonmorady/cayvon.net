@@ -9,13 +9,13 @@ type SectionProps = {
 
 export function Section({ id, title, subtitle, children }: SectionProps) {
   return (
-    <section id={id} className="scroll-mt-24 py-10">
+    <section id={id} className="scroll-mt-24 py-8 sm:py-10">
       <div className="flex flex-col gap-3">
         <div className="flex flex-col gap-2">
-          <p className="text-sm font-semibold uppercase tracking-[0.2em] text-muted">
+          <p className="text-sm font-semibold uppercase tracking-[0.14em] text-muted sm:tracking-[0.2em]">
             {subtitle ?? "Section"}
           </p>
-          <h2 className="font-display text-3xl font-semibold text-fg sm:text-4xl">
+          <h2 className="font-display text-2xl font-semibold leading-tight text-fg sm:text-4xl">
             {title}
           </h2>
         </div>
@@ -24,3 +24,4 @@ export function Section({ id, title, subtitle, children }: SectionProps) {
     </section>
   );
 }
+

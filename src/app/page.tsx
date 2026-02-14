@@ -22,8 +22,12 @@ export default function Home() {
                 2026 Resume
               </p>
               <h1 className="font-display text-3xl font-semibold text-fg sm:text-4xl">
-                {resumeData.headline}
+                {resumeData.headline.currentTitle}
               </h1>
+
+              <p className="font-display text-xl font-medium text-fg sm:text-2xl">
+                {resumeData.headline.currentCompany}
+              </p>
             </div>
             <div className="flex items-center gap-4">
               <nav className="hidden items-center gap-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted sm:flex">
@@ -126,3 +130,4 @@ export default function Home() {
     </div>
   );
 }
+

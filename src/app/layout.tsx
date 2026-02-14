@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { Fraunces, Work_Sans } from "next/font/google";
+import { Google_Sans_Flex } from "next/font/google";
 import "./globals.css";
 import { Providers } from "./providers";
 
-const displayFont = Fraunces({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["400", "600", "700"],
-});
-
-const bodyFont = Work_Sans({
+const bodyFont = Google_Sans_Flex({
   subsets: ["latin"],
   variable: "--font-body",
-  weight: ["400", "500", "600"],
+  weight: "variable",
+  axes: ["opsz", "wdth", "GRAD"],
+  adjustFontFallback: false,
 });
 
 export const metadata: Metadata = {
@@ -28,7 +24,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning className="scroll-smooth">
       <body
-        className={`${displayFont.variable} ${bodyFont.variable} min-h-screen bg-bg text-fg antialiased`}
+        className={`${bodyFont.variable} min-h-screen bg-bg text-fg antialiased`}
       >
         <Providers>{children}</Providers>
       </body>

@@ -31,7 +31,7 @@
   --color-accent-strong: var(--accent-strong);
   --color-ring: var(--ring);
   --font-sans: var(--font-body);
-  --font-display: var(--font-display);
+  --font-display: var(--font-body);
 }
 
 * {
@@ -41,8 +41,9 @@
 body {
   background: var(--bg);
   color: var(--fg);
-  font-family: var(--font-body), ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--font-body), -apple-system, BlinkMacSystemFont, sans-serif;
   letter-spacing: -0.01em;
+  -webkit-text-size-adjust: 100%;
 }
 
 ::selection {
