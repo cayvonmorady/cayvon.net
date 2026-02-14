@@ -21,7 +21,7 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div className="min-w-0">
           <h3 className="text-lg font-semibold break-words text-fg">{item.role}</h3>
-          <p className="text-sm font-medium break-words text-muted">{item.company}</p>
+          <p className="text-md font-medium break-words text-muted">{item.company}</p>
         </div>
         <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted sm:tracking-[0.2em]">
           {item.start} - {item.end}
@@ -30,7 +30,7 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
 
       <ul
         id={highlightsId}
-        className="mt-4 flex list-disc flex-col gap-2 pl-5 text-sm leading-6 text-muted sm:hidden"
+        className="mt-4 flex list-disc flex-col gap-2 pl-5 text-base leading-6 text-muted sm:hidden"
       >
         {mobileHighlights.map((highlight) => (
           <li key={highlight}>{highlight}</li>
@@ -53,7 +53,7 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
         </button>
       ) : null}
 
-      <ul className="mt-4 hidden list-disc flex-col gap-2 pl-5 text-sm leading-6 text-muted sm:flex">
+      <ul className="mt-4 hidden list-disc flex-col gap-2 pl-5 text-base leading-6 text-muted sm:flex">
         {item.highlights.map((highlight) => (
           <li key={highlight}>{highlight}</li>
         ))}
@@ -61,3 +61,4 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
     </article>
   );
 }
+
