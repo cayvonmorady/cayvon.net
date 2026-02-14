@@ -15,7 +15,7 @@ export const resumeData: ResumeSiteData = {
       start: "DEC 2023",
       end: "CURRENT",
       highlights: [
-        "Deployed Claude-powered agentic coding workflows (via Amazon Bedrock) across marketing technology operations, directly contributing to codebases in GitHub and.",
+        "Deployed Claude-powered agentic coding workflows (via Amazon Bedrock) across marketing technology operations, directly contributing to codebases in GitHub and AWS.",
         "Led a 4x increase in developer resourcing for MarTech by orchestrating a cross-functional partnership between Marketing and IT Systems Engineering.",
         "Central coordinator for complex, multi-stakeholder programs spanning the migration of MarTech-owned sites and services to Amazon's internal code repository, TwitchCon's event-tech infrastructure, internationalization of the Twitch platform into new languages, and away-team engineering initiatives driving creator and viewer growth.",
         "Expanded scope well beyond Marketing, serving as strategic TPM partner to multiple organizations across the company.",
