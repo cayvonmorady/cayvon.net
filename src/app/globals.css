@@ -373,6 +373,10 @@ body {
   overflow: hidden;
 }
 
+.hero-safe-top {
+  padding-top: 2.5rem;
+}
+
 .vaporwave .retro-bloom-overlay {
   display: none;
 }
@@ -1416,6 +1420,15 @@ body {
 }
 
 @media (max-width: 767px) {
+  .hero-safe-top {
+    padding-top: calc(2.5rem + max(env(safe-area-inset-top), 0px));
+  }
+
+  .hero-bloom-primary {
+    top: calc(max(env(safe-area-inset-top), 0px) + 0.25rem) !important;
+    left: -4.5rem !important;
+  }
+
   .modern-layout .theme-toggle__icon-wrap {
     width: 1.125rem;
     height: 1.125rem;

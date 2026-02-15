@@ -37,12 +37,12 @@ export default function Home() {
           </div>
 
           <header className="relative z-10">
-            <div className="relative mx-auto w-full max-w-5xl px-6 pb-6 pt-10">
+            <div className="hero-safe-top relative mx-auto w-full max-w-5xl px-6 pb-6">
               <div
                 aria-hidden="true"
                 className="retro-bloom-overlay pointer-events-none absolute inset-0 z-0"
               >
-                <div className="absolute -left-20 -top-16 h-64 w-64 rounded-full bg-[radial-gradient(circle,var(--bloom-accent),transparent_72%)] opacity-80 blur-2xl sm:-left-24 sm:top-2 sm:h-[22rem] sm:w-[22rem] sm:opacity-90 sm:blur-3xl xl:-left-14 xl:top-8 xl:h-[26rem] xl:w-[26rem]" />
+                <div className="hero-bloom-primary absolute -left-20 -top-16 h-64 w-64 rounded-full bg-[radial-gradient(circle,var(--bloom-accent),transparent_72%)] opacity-80 blur-2xl sm:-left-24 sm:top-2 sm:h-[22rem] sm:w-[22rem] sm:opacity-90 sm:blur-3xl xl:-left-14 xl:top-8 xl:h-[26rem] xl:w-[26rem]" />
                 <div className="absolute -right-20 top-[62%] h-56 w-56 rounded-full bg-[radial-gradient(circle,var(--bloom-neutral),transparent_72%)] opacity-70 blur-2xl sm:-right-20 sm:top-[56%] sm:h-[20rem] sm:w-[20rem] sm:opacity-85 sm:blur-3xl xl:-right-10 xl:top-[58%] xl:h-[24rem] xl:w-[24rem]" />
               </div>
 
