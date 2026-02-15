@@ -27,6 +27,8 @@ export type DesktopIcon = {
   id: string;
   label: string;
   windowId: DesktopWindowId;
+  iconSrc?: string;
+  fallbackIconSrc?: string;
 };
 
 export type ContextMenuAction =

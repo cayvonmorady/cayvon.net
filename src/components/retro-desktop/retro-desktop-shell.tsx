@@ -6,8 +6,10 @@ import {
   useMemo,
   useRef,
   useState,
+  type CSSProperties,
   type PointerEvent as ReactPointerEvent,
 } from "react";
+import Image from "next/image";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useRetroMode } from "@/components/retro-mode-provider";
 import { resumeData } from "@/data/resume";
@@ -30,12 +32,38 @@ import type {
 import { useWindowManager } from "@/components/retro-desktop/use-window-manager";
 
 const BOOT_SESSION_KEY = "retro_boot_seen";
+const ICON_LANE_WIDTH_PX = 128;
+const TASKBAR_HEIGHT_PX = 38;
 
 const DEFAULT_ICONS: DesktopIcon[] = [
-  { id: "my-computer", label: "My Computer", windowId: "explorer" },
-  { id: "my-documents", label: "My Documents", windowId: "profile" },
-  { id: "internet-explorer", label: "Internet Explorer", windowId: "experience" },
-  { id: "recycle-bin", label: "Recycle Bin", windowId: "education" },
+  {
+    id: "my-computer",
+    label: "My Computer",
+    windowId: "explorer",
+    iconSrc: "/retro-icons/my-computer.png",
+    fallbackIconSrc: "/retro-icons/my-computer.svg",
+  },
+  {
+    id: "my-documents",
+    label: "My Documents",
+    windowId: "profile",
+    iconSrc: "/retro-icons/my-documents.png",
+    fallbackIconSrc: "/retro-icons/my-documents.svg",
+  },
+  {
+    id: "internet-explorer",
+    label: "Internet Explorer",
+    windowId: "experience",
+    iconSrc: "/retro-icons/internet-explorer.png",
+    fallbackIconSrc: "/retro-icons/internet-explorer.svg",
+  },
+  {
+    id: "recycle-bin",
+    label: "Recycle Bin",
+    windowId: "education",
+    iconSrc: "/retro-icons/recycle-bin.png",
+    fallbackIconSrc: "/retro-icons/recycle-bin.svg",
+  },
 ];
 
 type Bounds = {
@@ -45,7 +73,6 @@ type Bounds = {
 
 type DesktopWindowProps = {
   state: WindowState;
-  isMobile: boolean;
   onFocus: (id: DesktopWindowId) => void;
   onStartDrag: (id: DesktopWindowId, event: ReactPointerEvent<HTMLElement>) => void;
   onMinimize: (id: DesktopWindowId) => void;
@@ -56,7 +83,6 @@ type DesktopWindowProps = {
 
 function DesktopWindow({
   state,
-  isMobile,
   onFocus,
   onStartDrag,
   onMinimize,
@@ -70,29 +96,19 @@ function DesktopWindow({
 
   return (
     <section
-      className={`window retro-window ${isMobile ? "is-mobile-window" : ""}`.trim()}
-      style={
-        isMobile
-          ? {
-              zIndex: state.zIndex,
-            }
-          : {
-              left: state.x,
-              top: state.y,
-              width: state.width,
-              height: state.height,
-              zIndex: state.zIndex,
-            }
-      }
+      className="window retro-window"
+      style={{
+        left: state.x,
+        top: state.y,
+        width: state.width,
+        height: state.height,
+        zIndex: state.zIndex,
+      }}
       onPointerDown={() => onFocus(state.id)}
     >
       <div
         className={`title-bar ${state.isActive ? "" : "inactive"}`.trim()}
-        onPointerDown={(event) => {
-          if (!isMobile) {
-            onStartDrag(state.id, event);
-          }
-        }}
+        onPointerDown={(event) => onStartDrag(state.id, event)}
       >
         <div className="title-bar-text">{state.title}</div>
         <div className="title-bar-controls">
@@ -127,16 +143,51 @@ function DesktopWindow({
   );
 }
 
+function DesktopIconImage({ icon }: { icon: DesktopIcon }) {
+  const sources = useMemo(() => {
+    const list: string[] = [];
+    if (icon.iconSrc) {
+      list.push(icon.iconSrc);
+    }
+    if (icon.fallbackIconSrc) {
+      list.push(icon.fallbackIconSrc);
+    }
+    return list;
+  }, [icon.fallbackIconSrc, icon.iconSrc]);
+  const [sourceIndex, setSourceIndex] = useState(0);
+
+  const activeSource = sources[sourceIndex];
+  if (!activeSource) {
+    return <span className="retro-desktop-icon__glyph" aria-hidden="true" />;
+  }
+
+  return (
+    <Image
+      src={activeSource}
+      alt=""
+      aria-hidden
+      className="retro-desktop-icon__image"
+      width={32}
+      height={32}
+      draggable={false}
+      unoptimized
+      onError={() => {
+        setSourceIndex((prev) => Math.min(prev + 1, sources.length - 1));
+      }}
+    />
+  );
+}
+
 export function RetroDesktopShell() {
   const { mode } = useRetroMode();
   const isRetro = mode === "retro";
+  const rootRef = useRef<HTMLDivElement | null>(null);
   const desktopRef = useRef<HTMLDivElement | null>(null);
   const explorerScrollRef = useRef<HTMLDivElement | null>(null);
   const soundEngineRef = useRef(createRetroSoundEngine());
   const loadTimeoutRef = useRef<number | null>(null);
 
-  const [bounds, setBounds] = useState<Bounds>({ width: 1200, height: 760 });
-  const [isMobile, setIsMobile] = useState(false);
+  const [bounds, setBounds] = useState<Bounds>({ width: 1200, height: 800 });
   const [bootDismissed, setBootDismissed] = useState(false);
   const [isStartMenuOpen, setIsStartMenuOpen] = useState(false);
   const [soundEnabled, setSoundEnabled] = useState(false);
@@ -149,6 +200,10 @@ export function RetroDesktopShell() {
   const [searchTerm, setSearchTerm] = useState("");
   const [groupBy, setGroupBy] = useState("section");
   const [showDesktopMenuButton, setShowDesktopMenuButton] = useState(false);
+  const effectiveIconLaneWidth = useMemo(
+    () => Math.min(ICON_LANE_WIDTH_PX, Math.max(72, Math.floor(bounds.width * 0.2))),
+    [bounds.width],
+  );
 
   const {
     windows,
@@ -162,9 +217,10 @@ export function RetroDesktopShell() {
     openAllWindows,
     closeAllWindows,
     startDrag,
+    applyBounds,
   } = useWindowManager({
     bounds,
-    isMobile,
+    taskbarHeight: TASKBAR_HEIGHT_PX,
   });
 
   const playSound = useCallback((event: "click" | "open" | "close" | "error") => {
@@ -178,7 +234,6 @@ export function RetroDesktopShell() {
   useEffect(() => {
     const media = window.matchMedia("(max-width: 767px)");
     const update = () => {
-      setIsMobile(media.matches);
       setShowDesktopMenuButton(media.matches);
     };
     update();
@@ -189,42 +244,33 @@ export function RetroDesktopShell() {
   }, []);
 
   useEffect(() => {
-    if (!desktopRef.current) {
+    if (!isRetro) {
       return;
     }
 
     const updateBounds = () => {
-      if (!desktopRef.current) {
-        return;
-      }
-      const rect = desktopRef.current.getBoundingClientRect();
-      setBounds({
-        width: Math.max(320, Math.floor(rect.width)),
-        height: Math.max(260, Math.floor(rect.height)),
-      });
+      const viewport = window.visualViewport;
+      const nextBounds = {
+        width: Math.max(320, Math.floor(viewport?.width ?? window.innerWidth)),
+        height: Math.max(320, Math.floor(viewport?.height ?? window.innerHeight)),
+      };
+      setBounds((prev) =>
+        prev.width === nextBounds.width && prev.height === nextBounds.height
+          ? prev
+          : nextBounds,
+      );
+      applyBounds(nextBounds);
     };
 
     updateBounds();
-    const observer = new ResizeObserver(updateBounds);
-    observer.observe(desktopRef.current);
     window.addEventListener("resize", updateBounds);
+    window.visualViewport?.addEventListener("resize", updateBounds);
 
     return () => {
-      observer.disconnect();
       window.removeEventListener("resize", updateBounds);
+      window.visualViewport?.removeEventListener("resize", updateBounds);
     };
-  }, []);
-
-  useEffect(() => {
-    if (!isRetro || typeof window === "undefined" || bootDismissed) {
-      return;
-    }
-
-    const hasSeenBoot = sessionStorage.getItem(BOOT_SESSION_KEY) === "1";
-    if (hasSeenBoot) {
-      openWindow("explorer");
-    }
-  }, [bootDismissed, isRetro, openWindow]);
+  }, [applyBounds, isRetro]);
 
   useEffect(() => {
     if (!windows.loading.isOpen) {
@@ -337,9 +383,8 @@ export function RetroDesktopShell() {
   const handleBootComplete = useCallback(() => {
     sessionStorage.setItem(BOOT_SESSION_KEY, "1");
     setBootDismissed(true);
-    openWindow("explorer");
-    playSound("open");
-  }, [openWindow, playSound]);
+    playSound("click");
+  }, [playSound]);
 
   const shouldShowBoot =
     isRetro &&
@@ -352,7 +397,16 @@ export function RetroDesktopShell() {
   }
 
   return (
-    <div className={`retro-desktop-root ${crtEnabled ? "is-crt-enabled" : ""}`}>
+    <div
+      className={`retro-desktop-root ${crtEnabled ? "is-crt-enabled" : ""}`}
+      ref={rootRef}
+      style={
+        {
+          "--retro-icon-lane-width": `${effectiveIconLaneWidth}px`,
+          "--retro-taskbar-height": `${TASKBAR_HEIGHT_PX}px`,
+        } as CSSProperties
+      }
+    >
       <div
         className="retro-desktop-workspace"
         ref={desktopRef}
@@ -385,42 +439,44 @@ export function RetroDesktopShell() {
           </BeveledButton>
         ) : null}
 
-        <div className="retro-desktop-icons" aria-label="Desktop icons">
-          {desktopIcons.map((icon) => (
-            <button
-              key={icon.id}
-              type="button"
-              className="retro-desktop-icon"
-              onDoubleClick={() => openWindowWithSound(icon.windowId)}
-              onClick={(event) => {
-                if (event.detail === 2) {
-                  openWindowWithSound(icon.windowId);
-                }
-              }}
-            >
-              <span className="retro-desktop-icon__glyph" aria-hidden="true" />
-              <span className="retro-desktop-icon__label">{icon.label}</span>
-            </button>
-          ))}
-        </div>
+        <aside className="retro-desktop-icon-lane" aria-label="Desktop icons">
+          <div className="retro-desktop-icons">
+            {desktopIcons.map((icon) => (
+              <button
+                key={icon.id}
+                type="button"
+                className="retro-desktop-icon"
+                onDoubleClick={() => openWindowWithSound(icon.windowId)}
+                onClick={(event) => {
+                  if (event.detail === 2) {
+                    openWindowWithSound(icon.windowId);
+                  }
+                }}
+              >
+                <DesktopIconImage icon={icon} />
+                <span className="retro-desktop-icon__label">{icon.label}</span>
+              </button>
+            ))}
+          </div>
+        </aside>
 
-        {windowList.map((windowState) => (
-          <DesktopWindow
-            key={windowState.id}
-            state={windowState}
-            isMobile={isMobile}
-            onFocus={focusWindow}
-            onStartDrag={startDrag}
-            onMinimize={(id) => {
-              minimizeWindow(id);
-              playSound("close");
-            }}
-            onToggleMaximize={(id) => {
-              toggleMaximizeWindow(id);
-              playSound("click");
-            }}
-            onClose={closeAndSound}
-          >
+        <div className="retro-window-layer">
+          {windowList.map((windowState) => (
+            <DesktopWindow
+              key={windowState.id}
+              state={windowState}
+              onFocus={focusWindow}
+              onStartDrag={startDrag}
+              onMinimize={(id) => {
+                minimizeWindow(id);
+                playSound("close");
+              }}
+              onToggleMaximize={(id) => {
+                toggleMaximizeWindow(id);
+                playSound("click");
+              }}
+              onClose={closeAndSound}
+            >
             {windowState.id === "profile" ? (
               <div className="retro-content-view">
                 <h2>{resumeData.headline.currentTitle}</h2>
@@ -616,8 +672,9 @@ export function RetroDesktopShell() {
                 ]}
               />
             ) : null}
-          </DesktopWindow>
-        ))}
+            </DesktopWindow>
+          ))}
+        </div>
 
         {contextMenuPosition ? (
           <ContextMenu

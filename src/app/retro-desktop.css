@@ -22,11 +22,14 @@
   --retro-link: #0000ee;
   --retro-link-visited: #551a8b;
   --retro-link-active: #cc0000;
+  --retro-icon-lane-width: 128px;
+  --retro-taskbar-height: 38px;
   position: fixed;
   inset: 0;
+  width: 100vw;
+  height: 100vh;
   z-index: 999;
-  display: flex;
-  flex-direction: column;
+  display: block;
   overflow: hidden;
   background: var(--retro-desktop-navy);
   color: var(--retro-text);
@@ -137,37 +140,57 @@
 }
 
 .retro .retro-desktop-workspace {
-  position: relative;
-  flex: 1;
+  position: absolute;
+  inset: 0 0 var(--retro-taskbar-height) 0;
   overflow: hidden;
-  padding: 0.75rem;
+  padding: 0;
+}
+
+.retro .retro-desktop-icon-lane {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: var(--retro-icon-lane-width);
+  padding: 0.75rem 0.45rem;
+  z-index: 10;
+  pointer-events: none;
 }
 
 .retro .retro-desktop-icons {
   display: grid;
   grid-auto-flow: row;
   gap: 0.55rem;
-  width: 7.3rem;
+  width: 100%;
+  pointer-events: auto;
 }
 
-.retro .retro-desktop-icon {
+.retro .retro-desktop-root .retro-desktop-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 0.22rem;
   min-height: 4.6rem;
   width: 100%;
-  border: 1px solid transparent;
-  background: transparent;
-  color: #f8f8f8;
+  border: 1px solid transparent !important;
+  background: transparent !important;
+  color: #f8f8f8 !important;
+  box-shadow: none !important;
   padding: 0.25rem 0.2rem;
   text-align: center;
 }
 
-.retro .retro-desktop-icon:hover,
-.retro .retro-desktop-icon:focus-visible {
-  border-color: #d4d4ff;
-  background: rgba(0, 0, 120, 0.32);
+.retro .retro-desktop-root .retro-desktop-icon:hover,
+.retro .retro-desktop-root .retro-desktop-icon:focus-visible,
+.retro .retro-desktop-root .retro-desktop-icon:active {
+  border-color: #d4d4ff !important;
+  background: rgba(0, 0, 120, 0.32) !important;
+}
+
+.retro .retro-desktop-icon__image {
+  width: 32px;
+  height: 32px;
+  display: block;
+  image-rendering: auto;
+  pointer-events: none;
 }
 
 .retro .retro-desktop-icon__glyph {
@@ -190,9 +213,17 @@
   text-shadow: 1px 1px 0 #000;
 }
 
+.retro .retro-window-layer {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+}
+
 .retro .retro-window {
   position: absolute;
   margin: 0;
+  pointer-events: auto;
   border: 1px solid var(--retro-border-dark);
   box-shadow:
     -1px -1px 0 var(--retro-border-light),
@@ -461,14 +492,18 @@
 }
 
 .retro .retro-taskbar {
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
   display: flex;
   align-items: center;
   gap: 0.35rem;
-  height: 38px;
+  height: var(--retro-taskbar-height);
   padding: 2px 4px;
   border-top: 1px solid #fff;
   background: #c0c0c0;
+  z-index: 100;
 }
 
 .retro .retro-start-button {
@@ -533,7 +568,7 @@
 .retro .retro-start-menu {
   position: absolute;
   left: 2px;
-  bottom: 38px;
+  bottom: var(--retro-taskbar-height);
   width: 226px;
   display: grid;
   grid-template-columns: 24px 1fr;
@@ -602,31 +637,13 @@
 }
 
 @media (max-width: 767px) {
-  .retro .retro-desktop-workspace {
-    overflow-y: auto;
-    padding: 0.55rem 0.4rem;
+  .retro .retro-desktop-icon-lane {
+    padding: 0.5rem 0.25rem;
   }
 
-  .retro .retro-desktop-icons {
-    width: 100%;
-    grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
-    grid-auto-flow: initial;
-    margin-bottom: 0.45rem;
-  }
-
-  .retro .retro-window.is-mobile-window {
-    position: relative !important;
-    left: auto !important;
-    top: auto !important;
-    width: 100% !important;
-    height: auto !important;
-    margin-bottom: 0.5rem;
-    z-index: auto !important;
-  }
-
-  .retro .retro-window.is-mobile-window .window-body {
-    height: auto;
-    max-height: 56vh;
+  .retro .retro-desktop-icon__label {
+    max-width: 5.25rem;
+    font-size: 10px;
   }
 
   .retro .retro-taskbar {

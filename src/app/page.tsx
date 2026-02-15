@@ -107,11 +107,6 @@ export default function Home() {
               className="retro-panel rounded-3xl border border-black/10 bg-card p-8 shadow-[0_20px_60px_-40px_rgba(15,23,42,0.45)]"
             >
               <div className="flex flex-col gap-6">
-                <div className="flex flex-wrap items-center gap-3">
-                  <span className="rounded-full border border-black/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.2em] text-muted">
-                    Profile
-                  </span>
-                </div>
                 <p className="text-lg leading-7 text-muted sm:text-xl">
                   {resumeData.summary}
                 </p>

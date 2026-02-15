@@ -23,7 +23,7 @@ type DesktopBounds = {
 
 type WindowManagerOptions = {
   bounds: DesktopBounds;
-  isMobile: boolean;
+  taskbarHeight: number;
 };
 
 type RestoreRect = {
@@ -34,6 +34,21 @@ type RestoreRect = {
 };
 
 type WindowRecord = Record<DesktopWindowId, WindowState>;
+
+type WindowLayoutConstraints = {
+  bounds: DesktopBounds;
+  taskbarHeight: number;
+};
+
+const MIN_VISIBLE_TITLEBAR_PX = 120;
+
+function shouldDebugClamp() {
+  if (process.env.NODE_ENV === "production" || typeof window === "undefined") {
+    return false;
+  }
+  const debugWindow = window as Window & { __RETRO_DEBUG_CLAMP__?: boolean };
+  return Boolean(debugWindow.__RETRO_DEBUG_CLAMP__);
+}
 
 function createInitialWindows(): WindowRecord {
   return {
@@ -157,20 +172,88 @@ function createInitialWindows(): WindowRecord {
   };
 }
 
-function clampWindow(win: WindowState, bounds: DesktopBounds): WindowState {
-  const maxX = Math.max(0, bounds.width - win.width);
-  const maxY = Math.max(0, bounds.height - win.height);
+function getWorkspaceBounds(bounds: DesktopBounds, taskbarHeight: number): DesktopBounds {
   return {
-    ...win,
-    x: Math.max(0, Math.min(win.x, maxX)),
-    y: Math.max(0, Math.min(win.y, maxY)),
+    width: Math.max(1, Math.floor(bounds.width)),
+    height: Math.max(1, Math.floor(bounds.height - taskbarHeight)),
   };
 }
 
-export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
+function clampWindow(win: WindowState, constraints: WindowLayoutConstraints): WindowState {
+  const workspace = getWorkspaceBounds(constraints.bounds, constraints.taskbarHeight);
+  const maxWidth = Math.max(1, workspace.width);
+  const maxHeight = Math.max(1, workspace.height);
+
+  if (win.isMaximized) {
+    const clamped = {
+      ...win,
+      x: minX,
+      y: 0,
+      width: maxWidth,
+      height: maxHeight,
+    };
+    if (shouldDebugClamp()) {
+      console.debug("[retro-clamp]", {
+        id: win.id,
+        mode: "maximized",
+        input: { x: win.x, y: win.y, width: win.width, height: win.height },
+        output: { x: clamped.x, y: clamped.y, width: clamped.width, height: clamped.height },
+        bounds: { minX, maxX: Math.max(minX, workspace.width - clamped.width), maxY: 0 },
+        workspace,
+      });
+    }
+    return clamped;
+  }
+
+  const minWidth = Math.min(220, maxWidth);
+  const minHeight = Math.min(140, maxHeight);
+  const width = Math.max(minWidth, Math.min(win.width, maxWidth));
+  const height = Math.max(minHeight, Math.min(win.height, maxHeight));
+  const visibleTitlebar = Math.max(1, Math.min(MIN_VISIBLE_TITLEBAR_PX, width));
+  const minX = visibleTitlebar - width;
+  const maxX = Math.max(minX, workspace.width - visibleTitlebar);
+  const maxY = Math.max(0, workspace.height - height);
+
+  const clamped = {
+    ...win,
+    x: Math.max(minX, Math.min(win.x, maxX)),
+    y: Math.max(0, Math.min(win.y, maxY)),
+    width,
+    height,
+  };
+  if (shouldDebugClamp()) {
+    console.debug("[retro-clamp]", {
+      id: win.id,
+      mode: "normal",
+      input: { x: win.x, y: win.y, width: win.width, height: win.height },
+      output: { x: clamped.x, y: clamped.y, width: clamped.width, height: clamped.height },
+      bounds: { minX, maxX, maxY },
+      workspace,
+    });
+  }
+  return clamped;
+}
+
+function hasWindowLayoutChanged(before: WindowState, after: WindowState) {
+  return (
+    before.x !== after.x ||
+    before.y !== after.y ||
+    before.width !== after.width ||
+    before.height !== after.height
+  );
+}
+
+export function useWindowManager({
+  bounds,
+  taskbarHeight,
+}: WindowManagerOptions) {
   const [windows, setWindows] = useState<WindowRecord>(createInitialWindows);
   const windowsRef = useRef(windows);
   const zCounterRef = useRef(50);
+  const constraintsRef = useRef<WindowLayoutConstraints>({
+    bounds,
+    taskbarHeight,
+  });
   const restoreRectsRef = useRef<Partial<Record<DesktopWindowId, RestoreRect>>>(
     {},
   );
@@ -178,6 +261,13 @@ export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
   useEffect(() => {
     windowsRef.current = windows;
   }, [windows]);
+
+  useEffect(() => {
+    constraintsRef.current = {
+      bounds,
+      taskbarHeight,
+    };
+  }, [bounds, taskbarHeight]);
 
   const nextZIndex = useCallback(() => {
     zCounterRef.current += 1;
@@ -225,6 +315,7 @@ export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
           isMinimized: false,
           isActive: true,
         };
+        next[id] = clampWindow(next[id], constraintsRef.current);
         return activateWindow(id, next);
       });
     },
@@ -274,15 +365,14 @@ export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
             height: target.height,
           };
 
-          next[id] = {
-            ...target,
-            x: 0,
-            y: 0,
-            width: bounds.width,
-            height: bounds.height,
-            isMaximized: true,
-            isMinimized: false,
-          };
+          next[id] = clampWindow(
+            {
+              ...target,
+              isMaximized: true,
+              isMinimized: false,
+            },
+            constraintsRef.current,
+          );
         } else {
           const restoreRect = restoreRectsRef.current[id];
           next[id] = {
@@ -294,13 +384,13 @@ export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
             isMaximized: false,
           };
           delete restoreRectsRef.current[id];
-          next[id] = clampWindow(next[id], bounds);
+          next[id] = clampWindow(next[id], constraintsRef.current);
         }
 
         return activateWindow(id, next);
       });
     },
-    [activateWindow, bounds],
+    [activateWindow],
   );
 
   const openAllWindows = useCallback((ids?: DesktopWindowId[]) => {
@@ -318,6 +408,7 @@ export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
           isOpen: true,
           isMinimized: false,
         };
+        next[id] = clampWindow(next[id], constraintsRef.current);
         lastId = id;
       }
       return activateWindow(lastId, next);
@@ -343,7 +434,7 @@ export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
 
   const startDrag = useCallback(
     (id: DesktopWindowId, event: ReactPointerEvent<HTMLElement>) => {
-      if (isMobile || event.button !== 0) {
+      if (event.button !== 0) {
         return;
       }
 
@@ -375,7 +466,7 @@ export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
               x: origin.x + dx,
               y: origin.y + dy,
             },
-            bounds,
+            constraintsRef.current,
           );
           return next;
         });
@@ -388,8 +479,31 @@ export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
       window.addEventListener("pointermove", onMove);
       window.addEventListener("pointerup", onUp, { once: true });
     },
-    [bounds, focusWindow, isMobile],
+    [focusWindow],
   );
+
+  const applyBounds = useCallback((nextBounds: DesktopBounds) => {
+    constraintsRef.current = {
+      ...constraintsRef.current,
+      bounds: nextBounds,
+    };
+
+    setWindows((prev) => {
+      const next = { ...prev };
+      let didChange = false;
+
+      for (const id of Object.keys(next) as DesktopWindowId[]) {
+        const current = next[id];
+        const clamped = clampWindow(current, constraintsRef.current);
+        if (hasWindowLayoutChanged(current, clamped)) {
+          next[id] = clamped;
+          didChange = true;
+        }
+      }
+
+      return didChange ? next : prev;
+    });
+  }, []);
 
   const windowList = useMemo(
     () => (Object.values(windows) as WindowState[]).sort((a, b) => a.zIndex - b.zIndex),
@@ -413,5 +527,6 @@ export function useWindowManager({ bounds, isMobile }: WindowManagerOptions) {
     openAllWindows,
     closeAllWindows,
     startDrag,
+    applyBounds,
   };
 }
