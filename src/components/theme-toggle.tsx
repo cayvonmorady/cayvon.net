@@ -3,6 +3,7 @@
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
+import { useRetroMode } from "@/components/retro-mode-provider";
 
 type AnimationType = "sunrise" | "sundown" | null;
 
@@ -10,6 +11,7 @@ const ANIMATION_DURATION_MS = 700;
 
 export function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
+  const { mode, isSpecialMode, deactivateMode } = useRetroMode();
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationType, setAnimationType] = useState<AnimationType>(null);
   const animationTimeoutRef = useRef<number | null>(null);
@@ -35,9 +37,27 @@ export function ThemeToggle() {
   }
 
   const isDark = resolvedTheme === "dark";
-  const label = isDark ? "Switch to light mode" : "Switch to dark mode";
+  const label = mode === "retro"
+    ? "Exit retro mode"
+    : mode === "vaporwave"
+      ? "Exit vaporwave mode"
+    : isDark
+      ? "Switch to light mode"
+      : "Switch to dark mode";
 
   const toggleTheme = () => {
+    if (isSpecialMode) {
+      if (animationTimeoutRef.current !== null) {
+        window.clearTimeout(animationTimeoutRef.current);
+        animationTimeoutRef.current = null;
+      }
+
+      setIsAnimating(false);
+      setAnimationType(null);
+      deactivateMode();
+      return;
+    }
+
     const targetTheme = isDark ? "light" : "dark";
     const nextAnimationType: Exclude<AnimationType, null> = isDark
       ? "sunrise"
@@ -60,6 +80,14 @@ export function ThemeToggle() {
 
   const animationClass =
     isAnimating && animationType ? `theme-toggle--${animationType}` : "";
+  const modeClass =
+    mode === "retro"
+      ? "is-retro"
+      : mode === "vaporwave"
+        ? "is-vaporwave"
+        : isDark
+          ? "is-dark"
+          : "is-light";
 
   return (
     <button
@@ -68,7 +96,7 @@ export function ThemeToggle() {
       suppressHydrationWarning
       onClick={toggleTheme}
       className={`theme-toggle inline-flex min-h-10 min-w-10 items-center justify-center rounded-full border border-black/10 bg-card p-2 text-muted transition-colors duration-150 hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring ${
-        isDark ? "is-dark" : "is-light"
+        modeClass
       } ${animationClass}`}
     >
       <span className="theme-toggle__sky" aria-hidden="true" />

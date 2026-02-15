@@ -28,6 +28,30 @@
   --bloom-neutral: rgba(148, 163, 184, 0.16);
 }
 
+.retro {
+  --bg: #050015;
+  --fg: #62ff62;
+  --muted: #44c2ff;
+  --card: #0f0524;
+  --accent: #ff43b5;
+  --accent-strong: #ffe84a;
+  --ring: #ff43b5;
+  --bloom-accent: rgba(255, 67, 181, 0.34);
+  --bloom-neutral: rgba(68, 194, 255, 0.3);
+}
+
+.vaporwave {
+  --bg: #1a0734;
+  --fg: #f8eefe;
+  --muted: #86e8ff;
+  --card: #2a0f52;
+  --accent: #ff4fd8;
+  --accent-strong: #73f7ff;
+  --ring: #ff4fd8;
+  --bloom-accent: rgba(255, 79, 216, 0.32);
+  --bloom-neutral: rgba(115, 247, 255, 0.26);
+}
+
 @theme inline {
   --color-bg: var(--bg);
   --color-fg: var(--fg);
@@ -54,6 +78,237 @@ body {
 
 ::selection {
   background: color-mix(in oklab, var(--accent) 35%, transparent);
+}
+
+.retro body {
+  position: relative;
+  font-family: "Lucida Console", "Courier New", "Andale Mono", monospace;
+  letter-spacing: 0.01em;
+  text-shadow: 0 0 0.25rem color-mix(in oklab, var(--fg) 45%, transparent);
+  background-color: var(--bg);
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255, 67, 181, 0.16), transparent 34%),
+    radial-gradient(circle at 84% 72%, rgba(68, 194, 255, 0.18), transparent 40%),
+    repeating-linear-gradient(
+      -45deg,
+      rgba(98, 255, 98, 0.045) 0,
+      rgba(98, 255, 98, 0.045) 2px,
+      transparent 2px,
+      transparent 8px
+    );
+}
+
+.retro body::before,
+.retro body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.retro body::before {
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.05) 0,
+    rgba(255, 255, 255, 0.05) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: screen;
+  opacity: 0.24;
+}
+
+.retro body::after {
+  background:
+    radial-gradient(circle at 30% 20%, rgba(255, 67, 181, 0.1), transparent 48%),
+    radial-gradient(circle at 70% 80%, rgba(68, 194, 255, 0.12), transparent 46%);
+  opacity: 0.34;
+  animation: retro-flicker 190ms steps(2, end) infinite;
+}
+
+.retro [class*="rounded-"] {
+  border-radius: 0 !important;
+}
+
+.retro [class*="shadow-"] {
+  box-shadow: none !important;
+}
+
+.retro :where(section, article, button, a, span) {
+  border-color: color-mix(in oklab, var(--accent) 62%, var(--fg)) !important;
+}
+
+.retro :where(button, a) {
+  text-decoration: underline;
+  text-decoration-thickness: 0.12em;
+  text-underline-offset: 0.14em;
+}
+
+.retro :where(h1, h2, h3) {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  text-shadow:
+    0 0 0.22rem color-mix(in oklab, var(--accent) 40%, transparent),
+    0 0 0.7rem color-mix(in oklab, var(--accent-strong) 26%, transparent);
+}
+
+.retro :where(p, li, span) {
+  color: color-mix(in oklab, var(--fg) 86%, var(--muted));
+}
+
+.retro a {
+  color: color-mix(in oklab, var(--muted) 70%, #7cc8ff);
+}
+
+.retro a:hover {
+  color: color-mix(in oklab, var(--accent-strong) 64%, #fff2a1);
+}
+
+.retro .theme-toggle.is-retro {
+  border-color: color-mix(in oklab, var(--accent) 72%, #fff);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--card) 68%, #130026),
+      color-mix(in oklab, var(--card) 84%, #03000a)
+    );
+  box-shadow:
+    0 0 0 2px color-mix(in oklab, var(--accent) 26%, transparent),
+    0 0 1rem color-mix(in oklab, var(--accent) 30%, transparent) !important;
+}
+
+.retro .theme-toggle.is-retro .theme-toggle__sun,
+.retro .theme-toggle.is-retro .theme-toggle__moon {
+  opacity: 1;
+  filter: drop-shadow(0 0 0.5rem color-mix(in oklab, var(--accent) 45%, transparent));
+}
+
+.retro .theme-toggle.is-retro .theme-toggle__sun {
+  transform: translateX(-20%) scale(0.95);
+  color: color-mix(in oklab, var(--accent-strong) 76%, #fff5a7);
+}
+
+.retro .theme-toggle.is-retro .theme-toggle__moon {
+  transform: translateX(20%) scale(0.95);
+  color: color-mix(in oklab, var(--muted) 82%, #7cc8ff);
+}
+
+.vaporwave body {
+  position: relative;
+  font-family: "Trebuchet MS", "Arial Black", "Helvetica Neue", sans-serif;
+  letter-spacing: 0.015em;
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255, 79, 216, 0.24), transparent 40%),
+    radial-gradient(circle at 82% 78%, rgba(115, 247, 255, 0.2), transparent 42%),
+    linear-gradient(180deg, #4f1f99 0%, #1a0734 54%, #120426 100%);
+}
+
+.vaporwave body::before,
+.vaporwave body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.vaporwave body::before {
+  background-image: linear-gradient(
+      rgba(255, 79, 216, 0.18) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(115, 247, 255, 0.12) 1px,
+      transparent 1px
+    );
+  background-size: 42px 42px;
+  opacity: 0.22;
+  transform: perspective(420px) rotateX(60deg) scale(1.4) translateY(34%);
+  transform-origin: center bottom;
+}
+
+.vaporwave body::after {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0) 0%,
+      rgba(255, 79, 216, 0.11) 46%,
+      rgba(115, 247, 255, 0.16) 100%
+    ),
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.08) 0,
+      rgba(255, 255, 255, 0.08) 2px,
+      transparent 2px,
+      transparent 5px
+    );
+  opacity: 0.38;
+  animation: vaporwave-sheen 2600ms linear infinite;
+}
+
+.vaporwave [class*="rounded-"] {
+  border-radius: 0 !important;
+}
+
+.vaporwave [class*="shadow-"] {
+  box-shadow: none !important;
+}
+
+.vaporwave :where(section, article, button, a, span) {
+  border-color: color-mix(in oklab, var(--accent) 58%, var(--accent-strong)) !important;
+}
+
+.vaporwave :where(h1, h2, h3) {
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  text-shadow:
+    0 0 0.3rem color-mix(in oklab, var(--accent) 45%, transparent),
+    0 0 1rem color-mix(in oklab, var(--accent-strong) 35%, transparent);
+}
+
+.vaporwave :where(button, a) {
+  color: color-mix(in oklab, var(--accent-strong) 74%, #d4fdff);
+  text-decoration: underline;
+  text-decoration-thickness: 0.1em;
+  text-underline-offset: 0.15em;
+}
+
+.vaporwave a:hover {
+  color: color-mix(in oklab, var(--accent) 66%, #ffd5f6);
+}
+
+.vaporwave .theme-toggle.is-vaporwave {
+  border-color: color-mix(in oklab, var(--accent-strong) 70%, #fff);
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--card) 66%, #2d0e64),
+      color-mix(in oklab, var(--card) 84%, #160733)
+    );
+  box-shadow:
+    0 0 0 2px color-mix(in oklab, var(--accent-strong) 30%, transparent),
+    0 0 1.1rem color-mix(in oklab, var(--accent) 38%, transparent) !important;
+}
+
+.vaporwave .theme-toggle.is-vaporwave .theme-toggle__sun,
+.vaporwave .theme-toggle.is-vaporwave .theme-toggle__moon {
+  opacity: 1;
+}
+
+.vaporwave .theme-toggle.is-vaporwave .theme-toggle__sun {
+  transform: translateX(-16%) scale(0.94);
+  color: color-mix(in oklab, var(--accent) 72%, #ffe7f8);
+  filter: drop-shadow(0 0 0.65rem color-mix(in oklab, var(--accent) 50%, transparent));
+}
+
+.vaporwave .theme-toggle.is-vaporwave .theme-toggle__moon {
+  transform: translateX(18%) scale(0.94);
+  color: color-mix(in oklab, var(--accent-strong) 78%, #dbffff);
+  filter: drop-shadow(
+    0 0 0.65rem color-mix(in oklab, var(--accent-strong) 48%, transparent)
+  );
 }
 
 .theme-toggle {
@@ -249,6 +504,37 @@ body {
   }
 }
 
+@keyframes retro-flicker {
+  0% {
+    opacity: 0.2;
+  }
+
+  50% {
+    opacity: 0.33;
+  }
+
+  100% {
+    opacity: 0.26;
+  }
+}
+
+@keyframes vaporwave-sheen {
+  0% {
+    transform: translateY(-4%) scale(1);
+    opacity: 0.32;
+  }
+
+  50% {
+    transform: translateY(2%) scale(1.01);
+    opacity: 0.42;
+  }
+
+  100% {
+    transform: translateY(-4%) scale(1);
+    opacity: 0.32;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .theme-toggle__sun,
   .theme-toggle__moon,
@@ -271,6 +557,16 @@ body {
   .theme-toggle--sundown .theme-toggle__moon,
   .theme-toggle--sundown .theme-toggle__sky {
     animation: none;
+  }
+
+  .retro body::after {
+    animation: none;
+    opacity: 0.2;
+  }
+
+  .vaporwave body::after {
+    animation: none;
+    opacity: 0.24;
   }
 }
 

@@ -137,7 +137,7 @@ export default function Home() {
                       {item.date}
                     </span>
                   </div>
-                  <ul className="list-disc space-y-2 pl-5 text-sm leading-6 text-muted">
+                  <ul className="list-disc space-y-2 pl-5 text-base leading-6 text-muted">
                     {item.notes.map((note) => (
                       <li key={note}>{note}</li>
                     ))}
