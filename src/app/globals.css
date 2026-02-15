@@ -41,15 +41,15 @@
 }
 
 .vaporwave {
-  --bg: #1a0734;
-  --fg: #f8eefe;
-  --muted: #86e8ff;
-  --card: #2a0f52;
-  --accent: #ff4fd8;
-  --accent-strong: #73f7ff;
-  --ring: #ff4fd8;
-  --bloom-accent: rgba(255, 79, 216, 0.32);
-  --bloom-neutral: rgba(115, 247, 255, 0.26);
+  --bg: #0b0120;
+  --fg: #ffeefe;
+  --muted: #9ff8ff;
+  --card: #2a054b;
+  --accent: #ff38d4;
+  --accent-strong: #3ffbff;
+  --ring: #ff38d4;
+  --bloom-accent: rgba(255, 56, 212, 0.44);
+  --bloom-neutral: rgba(63, 251, 255, 0.34);
 }
 
 @theme inline {
@@ -292,14 +292,33 @@ body {
   transform: translateY(-32%) scale(0.7);
 }
 
+.vaporwave-atmosphere,
+.vaporwave-dialog-panel,
+.vaporwave-japanese-tag,
+.vaporwave-japanese-ribbon,
+.vaporwave-main .vaporwave-sigil,
+.vaporwave-marquee {
+  display: none;
+}
+
+.vaporwave-only-label {
+  display: none;
+}
+
+.vaporwave-section__eyebrow {
+  display: none;
+}
+
 .vaporwave body {
   position: relative;
   font-family: "Trebuchet MS", "Arial Black", "Helvetica Neue", sans-serif;
-  letter-spacing: 0.015em;
+  letter-spacing: 0.03em;
   background:
-    radial-gradient(circle at 20% 12%, rgba(255, 79, 216, 0.24), transparent 40%),
-    radial-gradient(circle at 82% 78%, rgba(115, 247, 255, 0.2), transparent 42%),
-    linear-gradient(180deg, #4f1f99 0%, #1a0734 54%, #120426 100%);
+    radial-gradient(circle at 14% 12%, rgba(255, 56, 212, 0.4), transparent 40%),
+    radial-gradient(circle at 84% 20%, rgba(255, 150, 77, 0.3), transparent 34%),
+    radial-gradient(circle at 80% 84%, rgba(63, 251, 255, 0.3), transparent 45%),
+    linear-gradient(180deg, #230449 0%, #100229 44%, #060014 100%);
+  background-attachment: fixed;
 }
 
 .vaporwave body::before,
@@ -312,19 +331,24 @@ body {
 }
 
 .vaporwave body::before {
-  background-image: linear-gradient(
-      rgba(255, 79, 216, 0.18) 1px,
-      transparent 1px
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.12) 0,
+      rgba(255, 255, 255, 0.12) 1px,
+      transparent 1px,
+      transparent 3px
     ),
-    linear-gradient(
+    repeating-linear-gradient(
       90deg,
-      rgba(115, 247, 255, 0.12) 1px,
-      transparent 1px
+      rgba(122, 255, 250, 0.1) 0,
+      rgba(122, 255, 250, 0.1) 1px,
+      transparent 1px,
+      transparent 5px
     );
-  background-size: 42px 42px;
-  opacity: 0.22;
-  transform: perspective(420px) rotateX(60deg) scale(1.4) translateY(34%);
-  transform-origin: center bottom;
+  mix-blend-mode: screen;
+  opacity: 0.24;
+  animation: vaporwave-noise 170ms steps(2, end) infinite;
 }
 
 .vaporwave body::after {
@@ -332,49 +356,1011 @@ body {
     linear-gradient(
       180deg,
       rgba(255, 255, 255, 0) 0%,
-      rgba(255, 79, 216, 0.11) 46%,
-      rgba(115, 247, 255, 0.16) 100%
+      rgba(255, 84, 204, 0.18) 40%,
+      rgba(57, 255, 255, 0.22) 68%,
+      rgba(255, 143, 77, 0.2) 100%
+    ),
+    radial-gradient(circle at 50% -8%, rgba(255, 130, 78, 0.42), transparent 48%);
+  background-size: 180% 180%, 130% 130%;
+  background-position: 50% 0%, 50% -8%;
+  opacity: 0.52;
+  animation: vaporwave-sheen 11s ease-in-out infinite;
+}
+
+.vaporwave .modern-layout {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.vaporwave .retro-bloom-overlay {
+  display: none;
+}
+
+.vaporwave .vaporwave-scene::before,
+.vaporwave .vaporwave-scene::after {
+  content: "";
+  position: absolute;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.vaporwave .vaporwave-scene::before {
+  inset: -12%;
+  background:
+    radial-gradient(circle at 14% 18%, rgba(255, 54, 212, 0.32), transparent 35%),
+    radial-gradient(circle at 86% 74%, rgba(63, 251, 255, 0.26), transparent 36%),
+    radial-gradient(circle at 52% 52%, rgba(255, 141, 75, 0.22), transparent 44%);
+  transform-origin: center center;
+  opacity: 0.68;
+  animation: vaporwave-pulse 14s ease-in-out infinite;
+}
+
+.vaporwave .vaporwave-scene::after {
+  inset: 0;
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 58, 213, 0.08) 0,
+      transparent 28%,
+      rgba(66, 244, 255, 0.08) 72%,
+      transparent 100%
+    ),
+    linear-gradient(
+      180deg,
+      transparent 0,
+      rgba(255, 255, 255, 0.07) 48%,
+      transparent 100%
+    );
+  mix-blend-mode: screen;
+  opacity: 0.46;
+}
+
+.vaporwave .vaporwave-atmosphere {
+  display: block;
+  z-index: 1;
+}
+
+.vaporwave .vaporwave-starfield,
+.vaporwave .vaporwave-horizon-glow,
+.vaporwave .vaporwave-wireframe,
+.vaporwave .vaporwave-corridor,
+.vaporwave .vaporwave-floor-grid,
+.vaporwave .vaporwave-crt-noise,
+.vaporwave .vaporwave-sun-disc,
+.vaporwave .vaporwave-marquee,
+.vaporwave .vaporwave-kanji-wall {
+  position: absolute;
+}
+
+.vaporwave .vaporwave-starfield {
+  inset: 0;
+  background:
+    radial-gradient(circle, rgba(255, 255, 255, 0.8) 0.7px, transparent 1px) 0 0 / 70px
+      70px,
+    radial-gradient(circle, rgba(138, 255, 255, 0.9) 0.75px, transparent 1px) 32px 18px /
+      110px 110px,
+    radial-gradient(circle, rgba(255, 129, 216, 0.7) 0.8px, transparent 1px) 18px 42px / 96px
+      96px;
+  opacity: 0.52;
+  animation: vaporwave-stars 8.8s ease-in-out infinite;
+}
+
+.vaporwave .vaporwave-horizon-glow {
+  left: -14%;
+  right: -14%;
+  bottom: 26%;
+  height: 14rem;
+  background:
+    radial-gradient(
+      ellipse at center,
+      rgba(255, 70, 207, 0.5) 0%,
+      rgba(255, 142, 81, 0.3) 30%,
+      rgba(63, 251, 255, 0.24) 62%,
+      transparent 100%
+    );
+  filter: blur(26px);
+  opacity: 0.76;
+  animation: vaporwave-pulse 9s ease-in-out infinite reverse;
+  animation-delay: -3.2s;
+}
+
+.vaporwave .vaporwave-wireframe {
+  left: -18%;
+  right: -18%;
+  bottom: 17%;
+  height: 48vh;
+  background:
+    linear-gradient(
+      90deg,
+      transparent 0,
+      rgba(84, 255, 255, 0.2) 2%,
+      transparent 4%,
+      transparent 96%,
+      rgba(255, 70, 200, 0.24) 98%,
+      transparent 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(74, 242, 255, 0.28) 0,
+      rgba(74, 242, 255, 0.28) 2px,
+      transparent 2px,
+      transparent 42px
     ),
     repeating-linear-gradient(
       0deg,
-      rgba(255, 255, 255, 0.08) 0,
-      rgba(255, 255, 255, 0.08) 2px,
+      rgba(255, 78, 199, 0.28) 0,
+      rgba(255, 78, 199, 0.28) 2px,
       transparent 2px,
-      transparent 5px
+      transparent 40px
     );
+  transform: perspective(680px) rotateX(76deg) translateY(35%);
+  transform-origin: center bottom;
+  opacity: 0.62;
+  animation: vaporwave-grid-drift 10s linear infinite;
+}
+
+.vaporwave .vaporwave-corridor {
+  left: 50%;
+  bottom: 24%;
+  width: clamp(14rem, 42vw, 40rem);
+  height: 26vh;
+  transform: translateX(-50%) perspective(900px) rotateX(68deg);
+  transform-origin: center bottom;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      transparent 0,
+      transparent 34px,
+      rgba(255, 52, 210, 0.34) 34px,
+      rgba(255, 52, 210, 0.34) 36px
+    ),
+    linear-gradient(
+      180deg,
+      rgba(61, 245, 255, 0.42),
+      rgba(255, 151, 84, 0.28),
+      rgba(20, 0, 46, 0)
+    );
+  border: 1px solid rgba(89, 246, 255, 0.42);
+  box-shadow:
+    inset 0 0 2.8rem rgba(255, 52, 210, 0.3),
+    0 0 2.4rem rgba(63, 251, 255, 0.2);
+  opacity: 0.56;
+  animation: vaporwave-corridor-shift 5.5s linear infinite;
+}
+
+.vaporwave .vaporwave-floor-grid {
+  left: -30%;
+  right: -30%;
+  bottom: -28vh;
+  height: 54vh;
+  background:
+    repeating-conic-gradient(
+      from 45deg,
+      rgba(10, 0, 28, 0.76) 0deg 90deg,
+      rgba(247, 103, 201, 0.44) 90deg 180deg
+    );
+  background-size: 56px 56px;
+  transform: perspective(620px) rotateX(77deg);
+  transform-origin: center bottom;
   opacity: 0.38;
-  animation: vaporwave-sheen 2600ms linear infinite;
 }
 
-.vaporwave [class*="rounded-"] {
-  border-radius: 0 !important;
+.vaporwave .vaporwave-crt-noise {
+  inset: 0;
+  mix-blend-mode: screen;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.12), transparent 36%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.06) 0,
+      rgba(255, 255, 255, 0.06) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+  opacity: 0.42;
+  animation: vaporwave-noise 140ms steps(2, end) infinite;
 }
 
-.vaporwave [class*="shadow-"] {
-  box-shadow: none !important;
+.vaporwave .vaporwave-kanji-wall {
+  top: 9%;
+  right: 6%;
+  width: 7rem;
+  font-family:
+    "Yu Gothic",
+    "Hiragino Kaku Gothic ProN",
+    "MS PGothic",
+    "Meiryo",
+    sans-serif;
+  font-size: clamp(1rem, 1.5vw, 1.5rem);
+  line-height: 1.3;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  white-space: normal;
+  color: rgba(174, 255, 255, 0.58);
+  text-shadow:
+    0 0 0.8rem rgba(63, 251, 255, 0.6),
+    0 0 1.7rem rgba(255, 55, 208, 0.42);
+  opacity: 0.7;
+  transform: rotate(-8deg);
+  animation: vaporwave-kanji-float 8.5s ease-in-out infinite;
 }
 
-.vaporwave :where(section, article, button, a, span) {
-  border-color: color-mix(in oklab, var(--accent) 58%, var(--accent-strong)) !important;
+.vaporwave .vaporwave-marquee {
+  display: block;
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 9999;
+  overflow: hidden;
+  transform: none;
+  pointer-events: none;
+  border-top: 3px solid rgba(255, 66, 210, 0.74);
+  border-bottom: 3px solid rgba(65, 244, 255, 0.74);
+  background:
+    linear-gradient(
+      90deg,
+      rgba(255, 66, 210, 0.54),
+      rgba(72, 245, 255, 0.46),
+      rgba(255, 151, 84, 0.54)
+    );
+  box-shadow:
+    0 -12px 32px rgba(255, 66, 210, 0.4),
+    0 -4px 14px rgba(65, 244, 255, 0.34);
+  opacity: 0.98;
+}
+
+.vaporwave .vaporwave-marquee span {
+  display: inline-block;
+  white-space: nowrap;
+  padding: 0.78rem 0;
+  font-family: "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  font-size: clamp(1.15rem, 2.8vw, 2rem);
+  letter-spacing: 0.48em;
+  text-transform: uppercase;
+  color: rgba(248, 255, 255, 0.96);
+  text-shadow:
+    -3px 0 rgba(255, 53, 209, 0.96),
+    3px 0 rgba(65, 244, 255, 0.96),
+    0 0 1.2rem rgba(255, 95, 215, 0.72);
+  animation: vaporwave-marquee-scroll 14s linear infinite;
+}
+
+.vaporwave .vaporwave-sun-disc {
+  top: 4%;
+  left: 50%;
+  width: clamp(9rem, 24vw, 17rem);
+  height: clamp(9rem, 24vw, 17rem);
+  transform: translateX(-50%);
+  border-radius: 999px;
+  background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255, 173, 120, 0.96) 0,
+      rgba(255, 173, 120, 0.96) 9px,
+      rgba(255, 68, 208, 0.92) 9px,
+      rgba(255, 68, 208, 0.92) 18px
+    );
+  box-shadow:
+    0 0 4rem rgba(255, 93, 210, 0.58),
+    0 0 7rem rgba(65, 242, 255, 0.34);
+  opacity: 0.68;
+}
+
+.vaporwave .vaporwave-float {
+  position: absolute;
+  z-index: 2;
+  pointer-events: none;
+  will-change: transform;
+  animation: vaporwave-float 5.4s ease-in-out infinite;
+}
+
+.vaporwave .vaporwave-float--statue {
+  top: 6.2rem;
+  right: clamp(0.35rem, 1.8vw, 1.75rem);
+  width: 9.8rem;
+  height: 13.2rem;
+  border-radius: 44% 44% 16% 16% / 30% 30% 12% 12%;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(250, 252, 255, 0.86),
+      rgba(208, 214, 235, 0.82) 48%,
+      rgba(160, 170, 204, 0.78) 100%
+    );
+  border: 1px solid rgba(180, 255, 255, 0.42);
+  box-shadow:
+    0 0 2rem rgba(117, 251, 255, 0.36),
+    0 0 4.6rem rgba(255, 64, 204, 0.42);
+  overflow: hidden;
+  animation: vaporwave-statue-drift 34s linear infinite alternate;
+}
+
+.vaporwave .vaporwave-float--statue::before {
+  content: "";
+  position: absolute;
+  left: 18%;
+  right: 18%;
+  bottom: 0;
+  height: 32%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(229, 233, 255, 0.62) 0,
+      rgba(229, 233, 255, 0.62) 6px,
+      rgba(176, 188, 227, 0.72) 6px,
+      rgba(176, 188, 227, 0.72) 12px
+    );
+  opacity: 0.86;
+}
+
+.vaporwave .vaporwave-float--statue span {
+  position: absolute;
+  left: 50%;
+  bottom: 0.5rem;
+  transform: translateX(-50%);
+  font-family: "Times New Roman", "Palatino Linotype", serif;
+  font-size: 0.64rem;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  color: #ffffff;
+  text-shadow: 0 0 0.6rem rgba(255, 74, 197, 0.58);
+}
+
+.vaporwave .vaporwave-float--column {
+  top: 9.4rem;
+  left: max(0.4rem, 1.5vw);
+  width: 5.4rem;
+  height: 17rem;
+  background:
+    linear-gradient(
+      180deg,
+      rgba(246, 249, 255, 0.86) 0,
+      rgba(221, 230, 255, 0.72) 40%,
+      rgba(141, 150, 179, 0.72) 100%
+    ),
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 255, 255, 0.44) 0,
+      rgba(255, 255, 255, 0.44) 3px,
+      rgba(180, 194, 235, 0.36) 3px,
+      rgba(180, 194, 235, 0.36) 8px
+    );
+  border-radius: 0.8rem;
+  border: 1px solid rgba(143, 255, 255, 0.34);
+  box-shadow:
+    0 0 2.2rem rgba(65, 242, 255, 0.32),
+    0 0 4rem rgba(255, 64, 204, 0.28);
+  animation: vaporwave-column-drift 36s linear infinite alternate;
+}
+
+.vaporwave .vaporwave-float--column::before,
+.vaporwave .vaporwave-float--column::after {
+  content: "";
+  position: absolute;
+  left: -0.55rem;
+  width: calc(100% + 1.1rem);
+  height: 0.86rem;
+  border-radius: 0.35rem;
+  background: rgba(241, 246, 255, 0.9);
+}
+
+.vaporwave .vaporwave-float--column::before {
+  top: -0.46rem;
+}
+
+.vaporwave .vaporwave-float--column::after {
+  bottom: -0.46rem;
+}
+
+.vaporwave .vaporwave-float--column-right {
+  left: auto;
+  right: max(0.45rem, 1.7vw);
+  top: 11.8rem;
+  opacity: 0.72;
+  animation: vaporwave-column-drift-alt 39s linear infinite alternate;
+  animation-delay: -9.5s;
+}
+
+.vaporwave .vaporwave-float--statue-secondary {
+  left: 8%;
+  right: auto;
+  top: 12rem;
+  width: 7.8rem;
+  height: 10.8rem;
+  opacity: 0.72;
+  animation: vaporwave-statue-drift-alt 37s linear infinite alternate;
+  animation-delay: -12s;
+}
+
+.vaporwave .vaporwave-float--orb {
+  left: clamp(0.8rem, 4vw, 4.6rem);
+  top: clamp(8rem, 24vh, 14rem);
+  width: clamp(4.8rem, 11vw, 8rem);
+  height: clamp(4.8rem, 11vw, 8rem);
+  border-radius: 999px;
+  background:
+    radial-gradient(circle at 32% 30%, rgba(255, 255, 255, 0.72), transparent 34%),
+    radial-gradient(circle at 64% 70%, rgba(63, 251, 255, 0.52), rgba(255, 56, 212, 0.66));
+  border: 1px solid rgba(173, 252, 255, 0.58);
+  box-shadow:
+    0 0 2.6rem rgba(63, 251, 255, 0.36),
+    0 0 4.2rem rgba(255, 56, 212, 0.34);
+  mix-blend-mode: screen;
+  animation: vaporwave-orb-drift 31s linear infinite alternate;
+}
+
+.vaporwave .vaporwave-float--orb-alt {
+  left: auto;
+  right: clamp(0.9rem, 4.8vw, 5.4rem);
+  top: clamp(16rem, 36vh, 23rem);
+  width: clamp(3.4rem, 9vw, 6.2rem);
+  height: clamp(3.4rem, 9vw, 6.2rem);
+  opacity: 0.86;
+  animation: vaporwave-orb-drift-alt 34s linear infinite alternate;
+  animation-delay: -14s;
+}
+
+.vaporwave .vaporwave-float--gem {
+  left: clamp(42%, 56vw, 72%);
+  top: clamp(10rem, 27vh, 18rem);
+  width: clamp(3rem, 7vw, 4.8rem);
+  height: clamp(3rem, 7vw, 4.8rem);
+  border-radius: 0.55rem;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.72), rgba(63, 251, 255, 0.54)),
+    linear-gradient(315deg, rgba(255, 56, 212, 0.66), rgba(255, 141, 75, 0.52));
+  border: 1px solid rgba(206, 255, 255, 0.62);
+  box-shadow:
+    0 0 2rem rgba(63, 251, 255, 0.3),
+    0 0 3.6rem rgba(255, 56, 212, 0.36);
+  mix-blend-mode: screen;
+  animation: vaporwave-gem-drift 29s linear infinite alternate;
+  animation-delay: -6s;
+}
+
+.vaporwave .vaporwave-float--gem::before {
+  content: "";
+  position: absolute;
+  inset: 22%;
+  border-radius: 0.35rem;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  opacity: 0.7;
+}
+
+.vaporwave .vaporwave-float--palm {
+  bottom: 20%;
+  width: 2.6rem;
+  height: 12.5rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, rgba(255, 153, 104, 0.85), rgba(112, 38, 0, 0.84));
+  box-shadow: 0 0 2rem rgba(255, 151, 118, 0.4);
+  transform-origin: bottom center;
+}
+
+.vaporwave .vaporwave-float--palm-left {
+  left: clamp(0.9rem, 5vw, 5.8rem);
+  animation: vaporwave-palm-drift 38s linear infinite alternate;
+  animation-delay: -11s;
+}
+
+.vaporwave .vaporwave-float--palm-right {
+  right: clamp(0.9rem, 5vw, 5.8rem);
+  animation: vaporwave-palm-drift-alt 40s linear infinite alternate;
+  animation-delay: -19s;
+}
+
+.vaporwave .vaporwave-float--palm::before,
+.vaporwave .vaporwave-float--palm::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: -1.8rem;
+  width: 8rem;
+  height: 4rem;
+  transform-origin: left center;
+  border-radius: 100% 0;
+  background:
+    linear-gradient(120deg, rgba(133, 255, 221, 0.9), rgba(51, 222, 255, 0.8)),
+    linear-gradient(300deg, rgba(255, 89, 208, 0.3), transparent 62%);
+  filter: drop-shadow(0 0 0.8rem rgba(73, 250, 255, 0.44));
+}
+
+.vaporwave .vaporwave-float--palm::before {
+  transform: translateX(-12%) rotate(22deg);
+}
+
+.vaporwave .vaporwave-float--palm::after {
+  transform: translateX(-90%) rotate(-24deg);
 }
 
 .vaporwave :where(h1, h2, h3) {
+  font-family: "Times New Roman", "Palatino Linotype", "Book Antiqua", serif;
   text-transform: uppercase;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.14em;
   text-shadow:
-    0 0 0.3rem color-mix(in oklab, var(--accent) 45%, transparent),
-    0 0 1rem color-mix(in oklab, var(--accent-strong) 35%, transparent);
+    0 0 0.2rem rgba(255, 74, 197, 0.72),
+    0 0 1.7rem rgba(88, 245, 255, 0.56);
 }
 
-.vaporwave :where(button, a) {
-  color: color-mix(in oklab, var(--accent-strong) 74%, #d4fdff);
-  text-decoration: underline;
-  text-decoration-thickness: 0.1em;
-  text-underline-offset: 0.15em;
+.vaporwave :where(p, li, span) {
+  color: color-mix(in oklab, var(--fg) 74%, #99f8ff);
+}
+
+.vaporwave a {
+  color: color-mix(in oklab, var(--accent-strong) 82%, #e8ffff);
+  text-decoration: none;
+  transition:
+    color 180ms ease,
+    text-shadow 180ms ease;
 }
 
 .vaporwave a:hover {
-  color: color-mix(in oklab, var(--accent) 66%, #ffd5f6);
+  color: color-mix(in oklab, var(--accent) 68%, #ffe6f8);
+  text-shadow:
+    -2px 0 rgba(255, 66, 202, 0.82),
+    2px 0 rgba(88, 247, 255, 0.84);
+}
+
+.vaporwave .vaporwave-japanese-tag,
+.vaporwave .vaporwave-japanese-ribbon {
+  display: inline-block;
+  font-family:
+    "Yu Gothic",
+    "Hiragino Kaku Gothic ProN",
+    "MS PGothic",
+    "Meiryo",
+    sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.26em;
+  color: color-mix(in oklab, var(--accent-strong) 65%, #ffdcf5);
+}
+
+.vaporwave .vaporwave-only-label {
+  display: inline;
+}
+
+.vaporwave .vaporwave-hud-head {
+  position: relative;
+  padding: 0.9rem 1rem;
+  border: 1px solid rgba(67, 245, 255, 0.44);
+  background:
+    linear-gradient(
+      140deg,
+      rgba(255, 58, 213, 0.12),
+      rgba(63, 251, 255, 0.1) 50%,
+      rgba(255, 150, 77, 0.12)
+    );
+  box-shadow:
+    inset 0 0 1.4rem rgba(255, 58, 213, 0.16),
+    0 0 2rem rgba(63, 251, 255, 0.14);
+}
+
+.vaporwave .vaporwave-name {
+  letter-spacing: 0.17em;
+}
+
+.vaporwave .vaporwave-subline {
+  color: color-mix(in oklab, var(--muted) 70%, #ffc3f1);
+}
+
+.vaporwave .vaporwave-company {
+  font-family: "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: color-mix(in oklab, var(--accent-strong) 64%, #fff7ff);
+}
+
+.vaporwave .vaporwave-nav {
+  font-family: "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  letter-spacing: 0.26em;
+}
+
+.vaporwave .vaporwave-nav-link {
+  position: relative;
+  padding-bottom: 0.2rem;
+}
+
+.vaporwave .vaporwave-nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 2px;
+  transform: scaleX(0.1);
+  transform-origin: left center;
+  background: linear-gradient(90deg, rgba(255, 58, 213, 0.82), rgba(63, 251, 255, 0.82));
+  opacity: 0;
+  transition:
+    transform 180ms ease,
+    opacity 180ms ease;
+}
+
+.vaporwave .vaporwave-nav-link:hover::after {
+  opacity: 1;
+  transform: scaleX(1);
+}
+
+.vaporwave .vaporwave-icon-button {
+  border-color: color-mix(in oklab, var(--accent) 56%, var(--accent-strong)) !important;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--card) 66%, #33156a),
+      color-mix(in oklab, var(--card) 88%, #160733)
+    );
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--accent-strong) 24%, transparent),
+    0 0 1.1rem color-mix(in oklab, var(--accent) 38%, transparent);
+}
+
+.vaporwave .vaporwave-dialog-panel {
+  display: block;
+  position: relative;
+  overflow: hidden;
+  border-color: color-mix(in oklab, var(--accent) 66%, var(--accent-strong)) !important;
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in oklab, var(--card) 94%, #20053f) 0%,
+      color-mix(in oklab, var(--card) 64%, #2f0a63) 56%,
+      color-mix(in oklab, var(--card) 82%, #15062f) 100%
+    );
+  box-shadow:
+    0 0 0 1px rgba(83, 244, 255, 0.32),
+    0 0 2.8rem rgba(255, 64, 204, 0.42);
+}
+
+.vaporwave .vaporwave-boot-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 12000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at 20% 14%, rgba(255, 62, 214, 0.38), transparent 38%),
+    radial-gradient(circle at 82% 78%, rgba(84, 247, 255, 0.32), transparent 42%),
+    rgba(8, 0, 20, 0.68);
+  backdrop-filter: blur(2px);
+}
+
+.vaporwave .vaporwave-boot-overlay::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    rgba(255, 255, 255, 0.08) 0,
+    rgba(255, 255, 255, 0.08) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: screen;
+  opacity: 0.26;
+}
+
+.vaporwave .vaporwave-boot-panel {
+  width: min(30rem, 92vw);
+}
+
+.vaporwave .vaporwave-dialog-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 82% 16%, rgba(255, 117, 214, 0.24), transparent 34%),
+    radial-gradient(circle at 8% 88%, rgba(97, 246, 255, 0.28), transparent 40%);
+  pointer-events: none;
+}
+
+.vaporwave .vaporwave-dialog-panel__titlebar {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.45rem 0.55rem;
+  font-family: "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  font-size: 0.66rem;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: #fff;
+  border: 1px solid rgba(100, 244, 255, 0.42);
+  background: linear-gradient(90deg, rgba(255, 73, 202, 0.48), rgba(95, 243, 255, 0.3));
+}
+
+.vaporwave .vaporwave-boot-body {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  gap: 0.7rem;
+  padding-top: 0.8rem;
+}
+
+.vaporwave .vaporwave-boot-text {
+  margin: 0;
+  font-size: 0.78rem;
+  line-height: 1.45;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--accent-strong) 72%, #ffe7f8);
+}
+
+.vaporwave .vaporwave-loading-widget {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.vaporwave .vaporwave-loading-track {
+  width: min(12rem, 70vw);
+  height: 0.65rem;
+  border: 1px solid rgba(101, 245, 255, 0.55);
+  background: rgba(18, 2, 38, 0.72);
+  overflow: hidden;
+}
+
+.vaporwave .vaporwave-loading-fill {
+  display: block;
+  width: 76%;
+  height: 100%;
+  background:
+    repeating-linear-gradient(
+      90deg,
+      rgba(255, 121, 84, 0.95) 0,
+      rgba(255, 121, 84, 0.95) 8px,
+      rgba(55, 244, 255, 0.95) 8px,
+      rgba(55, 244, 255, 0.95) 16px
+  );
+  animation: vaporwave-loading 1650ms ease-in-out infinite;
+}
+
+.vaporwave .vaporwave-boot-readout {
+  margin: 0;
+  font-family: "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  font-size: 0.64rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--accent) 56%, #e9fdfd);
+}
+
+.vaporwave .vaporwave-boot-actions {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.vaporwave .vaporwave-boot-enter {
+  border: 1px solid color-mix(in oklab, var(--accent) 58%, var(--accent-strong));
+  border-radius: 999px;
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--card) 64%, #321067),
+      color-mix(in oklab, var(--card) 88%, #180734)
+    );
+  padding: 0.42rem 1rem;
+  font-family: "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  font-size: 0.62rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--fg) 84%, #dfffff);
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--accent-strong) 24%, transparent),
+    0 0 1rem color-mix(in oklab, var(--accent) 32%, transparent);
+  transition:
+    transform 160ms ease,
+    box-shadow 160ms ease,
+    color 160ms ease;
+}
+
+.vaporwave .vaporwave-boot-enter:hover {
+  transform: translateY(-1px);
+  color: #fff;
+  box-shadow:
+    0 0 0 1px color-mix(in oklab, var(--accent-strong) 28%, transparent),
+    0 0 1.3rem color-mix(in oklab, var(--accent) 42%, transparent);
+}
+
+.vaporwave .vaporwave-boot-enter:focus-visible {
+  outline: 2px solid color-mix(in oklab, var(--accent-strong) 58%, #fff);
+  outline-offset: 2px;
+}
+
+.vaporwave .retro-panel,
+.vaporwave .retro-experience-card {
+  border-color: color-mix(in oklab, var(--accent) 65%, var(--accent-strong)) !important;
+  background:
+    linear-gradient(
+      160deg,
+      color-mix(in oklab, var(--card) 94%, #200542) 0%,
+      color-mix(in oklab, var(--card) 68%, #2c0a5d) 52%,
+      color-mix(in oklab, var(--card) 84%, #17062f) 100%
+    );
+  box-shadow:
+    0 0 0 1px rgba(106, 246, 255, 0.34),
+    0 0 3.4rem rgba(255, 64, 204, 0.34) !important;
+}
+
+.vaporwave .vaporwave-panel,
+.vaporwave .vaporwave-card,
+.vaporwave .vaporwave-section__inner {
+  position: relative;
+  overflow: hidden;
+}
+
+.vaporwave .vaporwave-panel::before,
+.vaporwave .vaporwave-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 16% 14%, rgba(90, 245, 255, 0.2), transparent 40%),
+    radial-gradient(circle at 86% 88%, rgba(255, 64, 204, 0.22), transparent 34%);
+}
+
+.vaporwave .vaporwave-panel::after,
+.vaporwave .vaporwave-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.045) 0,
+      rgba(255, 255, 255, 0.045) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+  mix-blend-mode: screen;
+  opacity: 0.24;
+}
+
+.vaporwave .vaporwave-section__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+}
+
+.vaporwave .vaporwave-section__eyebrow {
+  display: block;
+  color: color-mix(in oklab, var(--accent-strong) 70%, #ffe1f9);
+}
+
+.vaporwave .vaporwave-glitch-title {
+  position: relative;
+  display: inline-block;
+  isolation: isolate;
+  text-shadow:
+    -2px 0 rgba(255, 66, 202, 0.84),
+    2px 0 rgba(88, 247, 255, 0.86),
+    0 0 1.3rem rgba(255, 66, 202, 0.48);
+}
+
+.vaporwave .vaporwave-glitch-title[data-text]::before,
+.vaporwave .vaporwave-glitch-title[data-text]::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.68;
+}
+
+.vaporwave .vaporwave-glitch-title[data-text]::before {
+  color: rgba(66, 244, 255, 0.9);
+  transform: translate(2px, 0);
+  clip-path: polygon(0 0, 100% 0, 100% 38%, 0 52%);
+}
+
+.vaporwave .vaporwave-glitch-title[data-text]::after {
+  color: rgba(255, 53, 209, 0.9);
+  transform: translate(-2px, 0);
+  clip-path: polygon(0 50%, 100% 42%, 100% 100%, 0 100%);
+}
+
+.vaporwave .vaporwave-glitch-title:hover,
+.vaporwave .vaporwave-card:hover .vaporwave-card__role {
+  animation: vaporwave-glitch 720ms steps(2, end) infinite;
+}
+
+.vaporwave .vaporwave-card {
+  transition:
+    transform 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.vaporwave .vaporwave-card:hover {
+  transform: translateY(-3px) rotate(-0.35deg);
+  box-shadow:
+    0 0 0 1px rgba(106, 246, 255, 0.5),
+    0 0 4rem rgba(255, 64, 204, 0.48) !important;
+}
+
+.vaporwave .vaporwave-card__header {
+  position: relative;
+  z-index: 1;
+}
+
+.vaporwave .vaporwave-card__company {
+  letter-spacing: 0.08em;
+}
+
+.vaporwave .vaporwave-card__toggle {
+  border-color: color-mix(in oklab, var(--accent) 56%, var(--accent-strong)) !important;
+  background: color-mix(in oklab, var(--card) 82%, #2e0f63) !important;
+}
+
+.vaporwave .vaporwave-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+.vaporwave .vaporwave-list li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.vaporwave .vaporwave-list li::before {
+  content: "\25A3";
+  position: absolute;
+  left: 0;
+  color: color-mix(in oklab, var(--accent-strong) 60%, #ffdef5);
+}
+
+.vaporwave .vaporwave-pill,
+.vaporwave .vaporwave-pixel-tag {
+  font-family: "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.vaporwave .vaporwave-pill {
+  border: 1px solid color-mix(in oklab, var(--accent-strong) 52%, transparent);
+  background: color-mix(in oklab, var(--accent) 16%, transparent);
+  box-shadow: 0 0 1.3rem color-mix(in oklab, var(--accent) 32%, transparent);
+}
+
+.vaporwave .vaporwave-pixel-tag {
+  color: color-mix(in oklab, var(--accent-strong) 80%, #ffe7f8) !important;
+}
+
+.vaporwave .vaporwave-status-line {
+  display: block !important;
+  padding: 0.4rem 0.58rem;
+  border: 1px solid rgba(103, 245, 255, 0.45);
+  background: color-mix(in oklab, var(--card) 72%, #190734);
+  font-family: "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+}
+
+.vaporwave .vaporwave-main {
+  position: relative;
+  padding-bottom: clamp(8rem, 16vw, 11rem);
+}
+
+.vaporwave .vaporwave-main .vaporwave-sigil {
+  display: block;
+  position: absolute;
+  right: 0;
+  top: -0.35rem;
+  font-family: "Arial Black", "Franklin Gothic Heavy", sans-serif;
+  font-size: clamp(2.2rem, 7vw, 4.8rem);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 93, 210, 0.14);
+  text-shadow:
+    -3px 0 rgba(255, 56, 212, 0.34),
+    3px 0 rgba(63, 251, 255, 0.32);
+  transform: rotate(-1deg);
+  animation: vaporwave-rgb-flicker 3.4s steps(2, end) infinite;
 }
 
 .vaporwave .theme-toggle.is-vaporwave {
@@ -396,17 +1382,112 @@ body {
 }
 
 .vaporwave .theme-toggle.is-vaporwave .theme-toggle__sun {
-  transform: translateX(-16%) scale(0.94);
+  transform: translateX(0) scale(0.94);
   color: color-mix(in oklab, var(--accent) 72%, #ffe7f8);
   filter: drop-shadow(0 0 0.65rem color-mix(in oklab, var(--accent) 50%, transparent));
 }
 
 .vaporwave .theme-toggle.is-vaporwave .theme-toggle__moon {
-  transform: translateX(18%) scale(0.94);
+  transform: translateX(0) scale(0.94);
   color: color-mix(in oklab, var(--accent-strong) 78%, #dbffff);
   filter: drop-shadow(
     0 0 0.65rem color-mix(in oklab, var(--accent-strong) 48%, transparent)
   );
+}
+
+.vaporwave.dark .theme-toggle.is-vaporwave .theme-toggle__sun {
+  opacity: 0;
+  transform: translateX(0) scale(0.7);
+}
+
+.vaporwave.dark .theme-toggle.is-vaporwave .theme-toggle__moon {
+  opacity: 1;
+  transform: translateX(0) scale(0.94);
+}
+
+.vaporwave:not(.dark) .theme-toggle.is-vaporwave .theme-toggle__sun {
+  opacity: 1;
+  transform: translateX(0) scale(0.94);
+}
+
+.vaporwave:not(.dark) .theme-toggle.is-vaporwave .theme-toggle__moon {
+  opacity: 0;
+  transform: translateX(0) scale(0.7);
+}
+
+@media (max-width: 767px) {
+  .vaporwave .vaporwave-float--column,
+  .vaporwave .vaporwave-float--statue {
+    display: none;
+  }
+
+  .vaporwave .vaporwave-float--column-right,
+  .vaporwave .vaporwave-float--statue-secondary,
+  .vaporwave .vaporwave-kanji-wall {
+    display: none;
+  }
+
+  .vaporwave .vaporwave-float--orb-alt,
+  .vaporwave .vaporwave-float--gem {
+    display: none;
+  }
+
+  .vaporwave .vaporwave-float--orb {
+    left: 0.45rem;
+    top: 22%;
+    width: 4rem;
+    height: 4rem;
+    opacity: 0.82;
+  }
+
+  .vaporwave .vaporwave-float--palm {
+    bottom: 24%;
+    width: 2.1rem;
+    height: 10rem;
+  }
+
+  .vaporwave .vaporwave-float--palm::before,
+  .vaporwave .vaporwave-float--palm::after {
+    top: -1.55rem;
+    width: 6.4rem;
+    height: 3.2rem;
+  }
+
+  .vaporwave .vaporwave-float--palm-left {
+    left: 0.35rem;
+  }
+
+  .vaporwave .vaporwave-float--palm-right {
+    right: 0.35rem;
+  }
+
+  .vaporwave .vaporwave-status-line {
+    letter-spacing: 0.1em;
+  }
+
+  .vaporwave .vaporwave-marquee {
+    bottom: env(safe-area-inset-bottom);
+  }
+
+  .vaporwave .vaporwave-marquee span {
+    padding: 0.66rem 0;
+    font-size: clamp(0.95rem, 5vw, 1.35rem);
+    letter-spacing: 0.34em;
+  }
+
+  .vaporwave .vaporwave-main .vaporwave-sigil {
+    font-size: clamp(1.9rem, 12vw, 3rem);
+  }
+
+  .vaporwave .vaporwave-boot-text {
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+  }
+
+  .vaporwave .vaporwave-boot-readout,
+  .vaporwave .vaporwave-boot-enter {
+    letter-spacing: 0.16em;
+  }
 }
 
 .theme-toggle {
@@ -618,18 +1699,433 @@ body {
 
 @keyframes vaporwave-sheen {
   0% {
-    transform: translateY(-4%) scale(1);
-    opacity: 0.32;
+    background-position: 46% 0%, 50% -8%;
+    opacity: 0.44;
+    filter: saturate(0.98);
   }
 
   50% {
-    transform: translateY(2%) scale(1.01);
-    opacity: 0.42;
+    background-position: 54% 0%, 50% -2%;
+    opacity: 0.58;
+    filter: saturate(1.14);
   }
 
   100% {
-    transform: translateY(-4%) scale(1);
-    opacity: 0.32;
+    background-position: 46% 0%, 50% -8%;
+    opacity: 0.44;
+    filter: saturate(0.98);
+  }
+}
+
+@keyframes vaporwave-noise {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  33% {
+    transform: translate3d(-0.25%, 0.22%, 0);
+  }
+
+  66% {
+    transform: translate3d(0.3%, -0.25%, 0);
+  }
+
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes vaporwave-stars {
+  0% {
+    opacity: 0.24;
+  }
+
+  50% {
+    opacity: 0.4;
+  }
+
+  100% {
+    opacity: 0.24;
+  }
+}
+
+@keyframes vaporwave-grid-drift {
+  0% {
+    transform: perspective(680px) rotateX(76deg) translateY(35%);
+  }
+
+  50% {
+    transform: perspective(680px) rotateX(76deg) translateY(33%);
+  }
+
+  100% {
+    transform: perspective(680px) rotateX(76deg) translateY(35%);
+  }
+}
+
+@keyframes vaporwave-float {
+  0% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-14px) rotate(0.8deg);
+  }
+
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+}
+
+@keyframes vaporwave-statue-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  18% {
+    transform: translate3d(-36vw, 2vh, 0) rotate(-4deg);
+  }
+
+  42% {
+    transform: translate3d(-18vw, 32vh, 0) rotate(3deg);
+  }
+
+  66% {
+    transform: translate3d(12vw, 52vh, 0) rotate(-2deg);
+  }
+
+  86% {
+    transform: translate3d(-8vw, 18vh, 0) rotate(2.4deg);
+  }
+
+  100% {
+    transform: translate3d(-30vw, -4vh, 0) rotate(-1deg);
+  }
+}
+
+@keyframes vaporwave-statue-drift-alt {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  16% {
+    transform: translate3d(36vw, -6vh, 0) rotate(3deg);
+  }
+
+  40% {
+    transform: translate3d(52vw, 24vh, 0) rotate(-2deg);
+  }
+
+  68% {
+    transform: translate3d(20vw, 56vh, 0) rotate(2deg);
+  }
+
+  86% {
+    transform: translate3d(6vw, 22vh, 0) rotate(-2.4deg);
+  }
+
+  100% {
+    transform: translate3d(42vw, 10vh, 0) rotate(1deg);
+  }
+}
+
+@keyframes vaporwave-column-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  18% {
+    transform: translate3d(48vw, -3vh, 0) rotate(2deg);
+  }
+
+  42% {
+    transform: translate3d(34vw, 30vh, 0) rotate(-2deg);
+  }
+
+  68% {
+    transform: translate3d(10vw, 58vh, 0) rotate(1.4deg);
+  }
+
+  88% {
+    transform: translate3d(24vw, 20vh, 0) rotate(-1.2deg);
+  }
+
+  100% {
+    transform: translate3d(52vw, 8vh, 0) rotate(0.8deg);
+  }
+}
+
+@keyframes vaporwave-column-drift-alt {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  18% {
+    transform: translate3d(-52vw, 4vh, 0) rotate(-2deg);
+  }
+
+  44% {
+    transform: translate3d(-40vw, 34vh, 0) rotate(2deg);
+  }
+
+  70% {
+    transform: translate3d(-14vw, 60vh, 0) rotate(-1.4deg);
+  }
+
+  88% {
+    transform: translate3d(-30vw, 24vh, 0) rotate(1.2deg);
+  }
+
+  100% {
+    transform: translate3d(-56vw, 10vh, 0) rotate(-0.8deg);
+  }
+}
+
+@keyframes vaporwave-orb-drift {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  22% {
+    transform: translate3d(44vw, -8vh, 0) scale(1.08);
+  }
+
+  48% {
+    transform: translate3d(56vw, 22vh, 0) scale(0.94);
+  }
+
+  76% {
+    transform: translate3d(24vw, 52vh, 0) scale(1.02);
+  }
+
+  100% {
+    transform: translate3d(6vw, 14vh, 0) scale(1);
+  }
+}
+
+@keyframes vaporwave-orb-drift-alt {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+
+  24% {
+    transform: translate3d(-48vw, -6vh, 0) scale(1.1);
+  }
+
+  52% {
+    transform: translate3d(-58vw, 26vh, 0) scale(0.92);
+  }
+
+  78% {
+    transform: translate3d(-28vw, 56vh, 0) scale(1.04);
+  }
+
+  100% {
+    transform: translate3d(-8vw, 18vh, 0) scale(1);
+  }
+}
+
+@keyframes vaporwave-gem-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(45deg);
+  }
+
+  18% {
+    transform: translate3d(-34vw, -5vh, 0) rotate(58deg);
+  }
+
+  42% {
+    transform: translate3d(-12vw, 28vh, 0) rotate(30deg);
+  }
+
+  68% {
+    transform: translate3d(20vw, 54vh, 0) rotate(61deg);
+  }
+
+  86% {
+    transform: translate3d(-4vw, 20vh, 0) rotate(37deg);
+  }
+
+  100% {
+    transform: translate3d(-26vw, 8vh, 0) rotate(45deg);
+  }
+}
+
+@keyframes vaporwave-palm-drift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  20% {
+    transform: translate3d(42vw, -8vh, 0) rotate(4deg);
+  }
+
+  45% {
+    transform: translate3d(58vw, 24vh, 0) rotate(-5deg);
+  }
+
+  72% {
+    transform: translate3d(26vw, 58vh, 0) rotate(3deg);
+  }
+
+  100% {
+    transform: translate3d(8vw, 10vh, 0) rotate(-2deg);
+  }
+}
+
+@keyframes vaporwave-palm-drift-alt {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg);
+  }
+
+  22% {
+    transform: translate3d(-44vw, -6vh, 0) rotate(-4deg);
+  }
+
+  46% {
+    transform: translate3d(-62vw, 26vh, 0) rotate(5deg);
+  }
+
+  74% {
+    transform: translate3d(-30vw, 62vh, 0) rotate(-3deg);
+  }
+
+  100% {
+    transform: translate3d(-10vw, 14vh, 0) rotate(2deg);
+  }
+}
+
+@keyframes vaporwave-loading {
+  0% {
+    transform: translateX(-38%);
+  }
+
+  50% {
+    transform: translateX(18%);
+  }
+
+  100% {
+    transform: translateX(-38%);
+  }
+}
+
+@keyframes vaporwave-glitch {
+  0% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+
+  18% {
+    transform: translate(-2px, 1px);
+    filter: hue-rotate(-18deg);
+  }
+
+  38% {
+    transform: translate(2px, -1px);
+    filter: hue-rotate(14deg);
+  }
+
+  62% {
+    transform: translate(-1px, 1px);
+    filter: hue-rotate(-12deg);
+  }
+
+  82% {
+    transform: translate(2px, 0);
+    filter: hue-rotate(18deg);
+  }
+
+  100% {
+    transform: translate(0);
+    filter: hue-rotate(0deg);
+  }
+}
+
+@keyframes vaporwave-pulse {
+  0% {
+    transform: scale(1) rotate(-0.2deg);
+    opacity: 0.62;
+    filter: saturate(1);
+  }
+
+  50% {
+    transform: scale(1.018) rotate(0.2deg);
+    opacity: 0.78;
+    filter: saturate(1.12);
+  }
+
+  100% {
+    transform: scale(1) rotate(-0.2deg);
+    opacity: 0.62;
+    filter: saturate(1);
+  }
+}
+
+@keyframes vaporwave-corridor-shift {
+  0% {
+    background-position:
+      0 0,
+      0 0;
+  }
+
+  100% {
+    background-position:
+      80px 0,
+      0 100%;
+  }
+}
+
+@keyframes vaporwave-marquee-scroll {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-52%);
+  }
+}
+
+@keyframes vaporwave-kanji-float {
+  0% {
+    transform: rotate(-8deg) translateY(0);
+    opacity: 0.58;
+  }
+
+  50% {
+    transform: rotate(-6deg) translateY(-12px);
+    opacity: 0.8;
+  }
+
+  100% {
+    transform: rotate(-8deg) translateY(0);
+    opacity: 0.58;
+  }
+}
+
+@keyframes vaporwave-rgb-flicker {
+  0% {
+    opacity: 0.14;
+    transform: rotate(-1deg) translateX(0);
+  }
+
+  25% {
+    opacity: 0.2;
+    transform: rotate(-1deg) translateX(-2px);
+  }
+
+  50% {
+    opacity: 0.15;
+    transform: rotate(-1deg) translateX(2px);
+  }
+
+  75% {
+    opacity: 0.2;
+    transform: rotate(-1deg) translateX(-1px);
+  }
+
+  100% {
+    opacity: 0.14;
+    transform: rotate(-1deg) translateX(0);
   }
 }
 
@@ -662,9 +2158,34 @@ body {
     opacity: 0.08;
   }
 
+  .vaporwave body::before,
   .vaporwave body::after {
     animation: none;
     opacity: 0.24;
+  }
+
+  .vaporwave .vaporwave-starfield,
+  .vaporwave .vaporwave-horizon-glow,
+  .vaporwave .vaporwave-wireframe,
+  .vaporwave .vaporwave-corridor,
+  .vaporwave .vaporwave-crt-noise,
+  .vaporwave .vaporwave-marquee span,
+  .vaporwave .vaporwave-kanji-wall,
+  .vaporwave .vaporwave-float,
+  .vaporwave .vaporwave-loading-fill,
+  .vaporwave .vaporwave-main .vaporwave-sigil,
+  .vaporwave .vaporwave-glitch-title:hover,
+  .vaporwave .vaporwave-card:hover .vaporwave-card__role {
+    animation: none !important;
+  }
+
+  .vaporwave .vaporwave-scene::before,
+  .vaporwave .vaporwave-scene::after {
+    animation: none !important;
+  }
+
+  .vaporwave .vaporwave-card {
+    transform: none !important;
   }
 }
 

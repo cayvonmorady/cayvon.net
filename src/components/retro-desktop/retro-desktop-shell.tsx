@@ -708,7 +708,7 @@ export function RetroDesktopShell() {
         trayThemeToggle={<ThemeToggle />}
       />
 
-      {shouldShowBoot ? <BootSplash durationMs={2500} onComplete={handleBootComplete} /> : null}
+      {shouldShowBoot ? <BootSplash durationMs={3500} onComplete={handleBootComplete} /> : null}
     </div>
   );
 }

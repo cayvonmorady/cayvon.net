@@ -9,7 +9,7 @@ type BootSplashProps = {
   onComplete: () => void;
 };
 
-export function BootSplash({ durationMs = 2500, onComplete }: BootSplashProps) {
+export function BootSplash({ durationMs = 3500, onComplete }: BootSplashProps) {
   const [elapsed, setElapsed] = useState(0);
   const progressValue = useMemo(
     () => Math.min(100, Math.round((elapsed / durationMs) * 100)),

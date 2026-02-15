@@ -17,20 +17,24 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
     : item.highlights.slice(0, 2);
 
   return (
-    <article className="retro-experience-card rounded-2xl border border-black/10 bg-card p-5 shadow-[0_12px_40px_-30px_rgba(15,23,42,0.45)] sm:p-6">
-      <div className="flex flex-wrap items-baseline justify-between gap-2">
+    <article className="retro-experience-card vaporwave-card rounded-2xl border border-black/10 bg-card p-5 shadow-[0_12px_40px_-30px_rgba(15,23,42,0.45)] sm:p-6">
+      <div className="vaporwave-card__header flex flex-wrap items-baseline justify-between gap-2">
         <div className="min-w-0">
-          <h3 className="text-lg font-semibold break-words text-fg">{item.role}</h3>
-          <p className="text-md font-medium break-words text-muted">{item.company}</p>
+          <h3 className="vaporwave-card__role text-lg font-semibold break-words text-fg">
+            {item.role}
+          </h3>
+          <p className="vaporwave-card__company text-md font-medium break-words text-muted">
+            {item.company}
+          </p>
         </div>
-        <span className="text-xs font-semibold uppercase tracking-[0.14em] text-muted sm:tracking-[0.2em]">
+        <span className="vaporwave-pixel-tag text-xs font-semibold uppercase tracking-[0.14em] text-muted sm:tracking-[0.2em]">
           {item.start} - {item.end}
         </span>
       </div>
 
       <ul
         id={highlightsId}
-        className="mt-4 flex list-disc flex-col gap-2 pl-5 text-base leading-6 text-muted sm:hidden"
+        className="vaporwave-list mt-4 flex list-disc flex-col gap-2 pl-5 text-base leading-6 text-muted sm:hidden"
       >
         {mobileHighlights.map((highlight) => (
           <li key={highlight}>{highlight}</li>
@@ -43,7 +47,7 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
           aria-expanded={isExpanded}
           aria-controls={highlightsId}
           onClick={() => setIsExpanded((prev) => !prev)}
-          className="retro-experience-toggle mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-card px-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted transition-colors duration-150 hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:hidden"
+          className="retro-experience-toggle vaporwave-card__toggle mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-card px-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted transition-colors duration-150 hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:hidden"
         >
           <span>{isExpanded ? "Show less" : "Show more"}</span>
           <ChevronDownIcon
@@ -53,7 +57,7 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
         </button>
       ) : null}
 
-      <ul className="mt-4 hidden list-disc flex-col gap-2 pl-5 text-base leading-6 text-muted sm:flex">
+      <ul className="vaporwave-list mt-4 hidden list-disc flex-col gap-2 pl-5 text-base leading-6 text-muted sm:flex">
         {item.highlights.map((highlight) => (
           <li key={highlight}>{highlight}</li>
         ))}
