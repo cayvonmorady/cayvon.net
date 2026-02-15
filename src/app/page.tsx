@@ -113,7 +113,7 @@ export default function Home() {
               </div>
             </section>
 
-            <Section id="experience" title="Experience" subtitle="Track Record">
+            <Section id="experience" title="Experience">
               <div className="mt-6 grid gap-6">
                 {resumeData.experience.map((item) => (
                   <ExperienceCard key={`${item.company}-${item.role}`} item={item} />
@@ -121,7 +121,7 @@ export default function Home() {
               </div>
             </Section>
 
-            <Section id="skills" title="Skills" subtitle="Core Strengths">
+            <Section id="skills" title="Skills">
               <div className="mt-6 grid gap-4 sm:grid-cols-3">
                 {resumeData.skills.map((group) => (
                   <div
@@ -146,7 +146,7 @@ export default function Home() {
               </div>
             </Section>
 
-            <Section id="education" title="Education" subtitle="Foundation">
+            <Section id="education" title="Education">
               <div className="retro-panel mt-6 rounded-2xl border border-black/10 bg-card p-6">
                 {resumeData.education.map((item) => (
                   <div key={item.institution} className="flex flex-col gap-3">

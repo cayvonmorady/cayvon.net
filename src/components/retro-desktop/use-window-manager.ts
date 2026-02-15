@@ -187,7 +187,7 @@ function clampWindow(win: WindowState, constraints: WindowLayoutConstraints): Wi
   if (win.isMaximized) {
     const clamped = {
       ...win,
-      x: minX,
+      x: 0,
       y: 0,
       width: maxWidth,
       height: maxHeight,
@@ -198,7 +198,7 @@ function clampWindow(win: WindowState, constraints: WindowLayoutConstraints): Wi
         mode: "maximized",
         input: { x: win.x, y: win.y, width: win.width, height: win.height },
         output: { x: clamped.x, y: clamped.y, width: clamped.width, height: clamped.height },
-        bounds: { minX, maxX: Math.max(minX, workspace.width - clamped.width), maxY: 0 },
+        bounds: { minX: 0, maxX: Math.max(0, workspace.width - clamped.width), maxY: 0 },
         workspace,
       });
     }
