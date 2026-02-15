@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
+import "./retro-desktop.css";
 import { Providers } from "./providers";
 
 const bodyFont = localFont({

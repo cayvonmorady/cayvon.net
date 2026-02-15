@@ -17,7 +17,7 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
     : item.highlights.slice(0, 2);
 
   return (
-    <article className="rounded-2xl border border-black/10 bg-card p-5 shadow-[0_12px_40px_-30px_rgba(15,23,42,0.45)] sm:p-6">
+    <article className="retro-experience-card rounded-2xl border border-black/10 bg-card p-5 shadow-[0_12px_40px_-30px_rgba(15,23,42,0.45)] sm:p-6">
       <div className="flex flex-wrap items-baseline justify-between gap-2">
         <div className="min-w-0">
           <h3 className="text-lg font-semibold break-words text-fg">{item.role}</h3>
@@ -43,7 +43,7 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
           aria-expanded={isExpanded}
           aria-controls={highlightsId}
           onClick={() => setIsExpanded((prev) => !prev)}
-          className="mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-card px-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted transition-colors duration-150 hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:hidden"
+          className="retro-experience-toggle mt-3 inline-flex min-h-11 items-center gap-2 rounded-full border border-black/10 bg-card px-3 text-xs font-semibold uppercase tracking-[0.14em] text-muted transition-colors duration-150 hover:text-fg focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring sm:hidden"
         >
           <span>{isExpanded ? "Show less" : "Show more"}</span>
           <ChevronDownIcon
@@ -61,4 +61,3 @@ export function ExperienceCard({ item }: ExperienceCardProps) {
     </article>
   );
 }
-

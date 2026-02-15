@@ -29,15 +29,15 @@
 }
 
 .retro {
-  --bg: #050015;
-  --fg: #62ff62;
-  --muted: #44c2ff;
-  --card: #0f0524;
-  --accent: #ff43b5;
-  --accent-strong: #ffe84a;
-  --ring: #ff43b5;
-  --bloom-accent: rgba(255, 67, 181, 0.34);
-  --bloom-neutral: rgba(68, 194, 255, 0.3);
+  --bg: #c3c7cb;
+  --fg: #101010;
+  --muted: #454545;
+  --card: #d4d0c8;
+  --accent: #000080;
+  --accent-strong: #0039c7;
+  --ring: #000080;
+  --bloom-accent: rgba(0, 0, 128, 0.1);
+  --bloom-neutral: rgba(69, 69, 69, 0.09);
 }
 
 .vaporwave {
@@ -82,24 +82,22 @@ body {
 
 .retro body {
   position: relative;
-  font-family: "Lucida Console", "Courier New", "Andale Mono", monospace;
-  letter-spacing: 0.01em;
-  text-shadow: 0 0 0.25rem color-mix(in oklab, var(--fg) 45%, transparent);
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  letter-spacing: 0;
+  text-shadow: none;
   background-color: var(--bg);
   background-image:
-    radial-gradient(circle at 12% 18%, rgba(255, 67, 181, 0.16), transparent 34%),
-    radial-gradient(circle at 84% 72%, rgba(68, 194, 255, 0.18), transparent 40%),
+    linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05)),
     repeating-linear-gradient(
-      -45deg,
-      rgba(98, 255, 98, 0.045) 0,
-      rgba(98, 255, 98, 0.045) 2px,
-      transparent 2px,
-      transparent 8px
+      90deg,
+      rgba(0, 0, 0, 0.015) 0,
+      rgba(0, 0, 0, 0.015) 1px,
+      transparent 1px,
+      transparent 4px
     );
 }
 
-.retro body::before,
-.retro body::after {
+.retro body::before {
   content: "";
   position: fixed;
   inset: 0;
@@ -108,23 +106,19 @@ body {
 }
 
 .retro body::before {
-  background: repeating-linear-gradient(
+  background-image: repeating-linear-gradient(
     0deg,
-    rgba(255, 255, 255, 0.05) 0,
-    rgba(255, 255, 255, 0.05) 1px,
-    transparent 1px,
-    transparent 3px
+    rgba(255, 255, 255, 0.08) 0,
+    rgba(255, 255, 255, 0.08) 1px,
+    rgba(0, 0, 0, 0.03) 1px,
+    rgba(0, 0, 0, 0.03) 2px
   );
-  mix-blend-mode: screen;
-  opacity: 0.24;
+  opacity: 0.12;
+  animation: retro-scan-drift 8s ease-in-out infinite;
 }
 
-.retro body::after {
-  background:
-    radial-gradient(circle at 30% 20%, rgba(255, 67, 181, 0.1), transparent 48%),
-    radial-gradient(circle at 70% 80%, rgba(68, 194, 255, 0.12), transparent 46%);
-  opacity: 0.34;
-  animation: retro-flicker 190ms steps(2, end) infinite;
+.retro .retro-bloom-overlay {
+  display: none;
 }
 
 .retro [class*="rounded-"] {
@@ -135,63 +129,167 @@ body {
   box-shadow: none !important;
 }
 
-.retro :where(section, article, button, a, span) {
-  border-color: color-mix(in oklab, var(--accent) 62%, var(--fg)) !important;
+.retro .retro-panel,
+.retro .retro-experience-card,
+.retro .retro-utility-strip,
+.retro .retro-status-line {
+  background-color: var(--card);
+  border: 1px solid #808080 !important;
+  border-top-color: #ffffff !important;
+  border-left-color: #ffffff !important;
+  border-right-color: #404040 !important;
+  border-bottom-color: #404040 !important;
 }
 
-.retro :where(button, a) {
-  text-decoration: underline;
-  text-decoration-thickness: 0.12em;
-  text-underline-offset: 0.14em;
+.retro .retro-utility-strip,
+.retro .retro-status-line {
+  display: block !important;
+  padding: 0.36rem 0.55rem;
+  font-size: 0.72rem;
+  line-height: 1.45;
+}
+
+.retro .retro-utility-strip {
+  margin-bottom: 1rem;
+}
+
+.retro .retro-status-line {
+  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+.retro .retro-utility-separator {
+  color: #656565;
+  padding-inline: 0.35rem;
+}
+
+.retro .retro-section__header {
+  gap: 0.25rem;
+}
+
+.retro .retro-section__eyebrow {
+  color: #000080 !important;
+  text-transform: none;
+  letter-spacing: 0.04em;
+  font-size: 0.72rem;
+}
+
+.retro .retro-section__title {
+  font-family: Tahoma, Verdana, Arial, sans-serif;
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: clamp(1.12rem, 2.2vw, 1.6rem);
 }
 
 .retro :where(h1, h2, h3) {
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  text-shadow:
-    0 0 0.22rem color-mix(in oklab, var(--accent) 40%, transparent),
-    0 0 0.7rem color-mix(in oklab, var(--accent-strong) 26%, transparent);
+  text-transform: none;
+  letter-spacing: 0;
+  text-shadow: none;
 }
 
 .retro :where(p, li, span) {
-  color: color-mix(in oklab, var(--fg) 86%, var(--muted));
+  color: var(--fg);
+}
+
+.retro .text-muted {
+  color: var(--muted) !important;
+}
+
+.retro .text-fg {
+  color: var(--fg) !important;
 }
 
 .retro a {
-  color: color-mix(in oklab, var(--muted) 70%, #7cc8ff);
+  color: #0000ee;
+  text-decoration: underline;
+  text-underline-offset: 0.08em;
+}
+
+.retro a:visited {
+  color: #551a8b;
 }
 
 .retro a:hover {
-  color: color-mix(in oklab, var(--accent-strong) 64%, #fff2a1);
+  color: #0000ee;
+}
+
+.retro a:active {
+  color: #cc0000;
+}
+
+.retro .transition,
+.retro .transition-colors,
+.retro .transition-transform,
+.retro [class*="duration-"] {
+  transition: none !important;
+}
+
+.retro button {
+  background: var(--card) !important;
+  border: 1px solid #808080 !important;
+  border-top-color: #ffffff !important;
+  border-left-color: #ffffff !important;
+  border-right-color: #404040 !important;
+  border-bottom-color: #404040 !important;
+  box-shadow: none !important;
+  text-decoration: none !important;
+  color: var(--fg) !important;
+}
+
+.retro button:active {
+  border-top-color: #404040 !important;
+  border-left-color: #404040 !important;
+  border-right-color: #ffffff !important;
+  border-bottom-color: #ffffff !important;
+}
+
+.retro .retro-experience-toggle {
+  min-height: 2rem;
+  letter-spacing: 0.04em;
+  font-size: 0.68rem;
 }
 
 .retro .theme-toggle.is-retro {
-  border-color: color-mix(in oklab, var(--accent) 72%, #fff);
-  background:
-    linear-gradient(
-      180deg,
-      color-mix(in oklab, var(--card) 68%, #130026),
-      color-mix(in oklab, var(--card) 84%, #03000a)
-    );
-  box-shadow:
-    0 0 0 2px color-mix(in oklab, var(--accent) 26%, transparent),
-    0 0 1rem color-mix(in oklab, var(--accent) 30%, transparent) !important;
+  background: var(--card) !important;
+  border: 1px solid #808080 !important;
+  border-top-color: #ffffff !important;
+  border-left-color: #ffffff !important;
+  border-right-color: #404040 !important;
+  border-bottom-color: #404040 !important;
+  box-shadow: none !important;
 }
 
 .retro .theme-toggle.is-retro .theme-toggle__sun,
 .retro .theme-toggle.is-retro .theme-toggle__moon {
-  opacity: 1;
-  filter: drop-shadow(0 0 0.5rem color-mix(in oklab, var(--accent) 45%, transparent));
+  filter: none;
 }
 
 .retro .theme-toggle.is-retro .theme-toggle__sun {
-  transform: translateX(-20%) scale(0.95);
-  color: color-mix(in oklab, var(--accent-strong) 76%, #fff5a7);
+  color: #000080;
 }
 
 .retro .theme-toggle.is-retro .theme-toggle__moon {
-  transform: translateX(20%) scale(0.95);
-  color: color-mix(in oklab, var(--muted) 82%, #7cc8ff);
+  color: #404040;
+}
+
+.retro.dark .theme-toggle.is-retro .theme-toggle__sun {
+  opacity: 0;
+  transform: translateY(32%) scale(0.72);
+}
+
+.retro.dark .theme-toggle.is-retro .theme-toggle__moon {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.retro:not(.dark) .theme-toggle.is-retro .theme-toggle__sun {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.retro:not(.dark) .theme-toggle.is-retro .theme-toggle__moon {
+  opacity: 0;
+  transform: translateY(-32%) scale(0.7);
 }
 
 .vaporwave body {
@@ -504,17 +602,17 @@ body {
   }
 }
 
-@keyframes retro-flicker {
+@keyframes retro-scan-drift {
   0% {
-    opacity: 0.2;
+    opacity: 0.08;
   }
 
   50% {
-    opacity: 0.33;
+    opacity: 0.14;
   }
 
   100% {
-    opacity: 0.26;
+    opacity: 0.1;
   }
 }
 
@@ -559,9 +657,9 @@ body {
     animation: none;
   }
 
-  .retro body::after {
+  .retro body::before {
     animation: none;
-    opacity: 0.2;
+    opacity: 0.08;
   }
 
   .vaporwave body::after {
