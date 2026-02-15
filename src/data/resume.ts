@@ -7,7 +7,7 @@ export const resumeData: ResumeSiteData = {
     currentCompany: "Twitch, Inc.",
   },
   summary:
-    "Technical program manager with experience across marketing technology, performance growth, and cross-functional execution. I build operating models, align Product and Engineering organizations, and ship high-impact initiatives from strategy through production.",
+    "Technical Program Manager with a background in Information Systems and a history of achievement in the Marketing Technology space. I align Tech and non-Tech organizations, helping to ship high-impact initiatives from strategy through production.",
   experience: [
     {
       company: "Twitch, Inc.",
