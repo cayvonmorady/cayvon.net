@@ -1,17 +1,25 @@
 "use client";
 
 import { MoonIcon, SunIcon } from "@heroicons/react/24/solid";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState, useSyncExternalStore } from "react";
 import { useTheme } from "next-themes";
 import { useRetroMode } from "@/components/retro-mode-provider";
 
 type AnimationType = "sunrise" | "sundown" | null;
 
 const ANIMATION_DURATION_MS = 700;
+const subscribe = () => () => {};
+const getClientSnapshot = () => true;
+const getServerSnapshot = () => false;
 
 export function ThemeToggle() {
   const { setTheme, resolvedTheme } = useTheme();
   const { mode, isSpecialMode, deactivateMode } = useRetroMode();
+  const isClient = useSyncExternalStore(
+    subscribe,
+    getClientSnapshot,
+    getServerSnapshot,
+  );
   const [isAnimating, setIsAnimating] = useState(false);
   const [animationType, setAnimationType] = useState<AnimationType>(null);
   const animationTimeoutRef = useRef<number | null>(null);
@@ -24,7 +32,7 @@ export function ThemeToggle() {
     };
   }, []);
 
-  if (!resolvedTheme) {
+  if (!isClient || !resolvedTheme) {
     return (
       <button
         type="button"
