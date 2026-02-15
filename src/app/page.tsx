@@ -1,4 +1,5 @@
 import { ExperienceCard } from "@/components/experience-card";
+import { AnchorLink } from "@/components/anchor-link";
 import { RetroDesktopShell } from "@/components/retro-desktop/retro-desktop-shell";
 import { Section } from "@/components/section";
 import { ThemeToggle } from "@/components/theme-toggle";
@@ -11,7 +12,7 @@ export default function Home() {
       <RetroDesktopShell />
       <VaporwaveBootSplash />
 
-      <div className="modern-layout vaporwave-scene min-h-screen bg-bg text-fg">
+      <div id="top" className="modern-layout vaporwave-scene min-h-screen bg-bg text-fg">
         <div className="relative overflow-hidden">
           <div
             aria-hidden="true"
@@ -94,24 +95,30 @@ export default function Home() {
 
                   <div className="flex items-center gap-4">
                     <nav className="vaporwave-nav hidden items-center gap-4 text-xs font-semibold uppercase tracking-[0.2em] text-muted sm:flex">
-                      <a className="vaporwave-nav-link transition hover:text-fg" href="#profile">
-                        Profile
-                      </a>
-                      <a
+                      <AnchorLink
                         className="vaporwave-nav-link transition hover:text-fg"
-                        href="#experience"
+                        targetId="top"
+                      >
+                        Profile
+                      </AnchorLink>
+                      <AnchorLink
+                        className="vaporwave-nav-link transition hover:text-fg"
+                        targetId="experience"
                       >
                         Experience
-                      </a>
-                      <a className="vaporwave-nav-link transition hover:text-fg" href="#skills">
-                        Skills
-                      </a>
-                      <a
+                      </AnchorLink>
+                      <AnchorLink
                         className="vaporwave-nav-link transition hover:text-fg"
-                        href="#education"
+                        targetId="skills"
+                      >
+                        Skills
+                      </AnchorLink>
+                      <AnchorLink
+                        className="vaporwave-nav-link transition hover:text-fg"
+                        targetId="education"
                       >
                         Education
-                      </a>
+                      </AnchorLink>
                     </nav>
                   </div>
                 </div>
@@ -128,19 +135,19 @@ export default function Home() {
             </div>
 
             <div className="retro-utility-strip hidden text-xs font-medium text-fg">
-              <a href="#profile">Home</a>
+              <AnchorLink targetId="top">Home</AnchorLink>
               <span className="retro-utility-separator" aria-hidden="true">
                 |
               </span>
-              <a href="#experience">Experience</a>
+              <AnchorLink targetId="experience">Experience</AnchorLink>
               <span className="retro-utility-separator" aria-hidden="true">
                 |
               </span>
-              <a href="#skills">Skills</a>
+              <AnchorLink targetId="skills">Skills</AnchorLink>
               <span className="retro-utility-separator" aria-hidden="true">
                 |
               </span>
-              <a href="#education">Education</a>
+              <AnchorLink targetId="education">Education</AnchorLink>
               <span className="retro-utility-separator" aria-hidden="true">
                 |
               </span>

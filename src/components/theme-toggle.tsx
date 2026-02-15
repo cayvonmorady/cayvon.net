@@ -109,8 +109,8 @@ export function ThemeToggle() {
     >
       <span className="theme-toggle__sky" aria-hidden="true" />
       <span className="theme-toggle__icon-wrap" aria-hidden="true">
-        <SunIcon className="theme-toggle__sun h-4 w-4 sm:h-5 sm:w-5" />
-        <MoonIcon className="theme-toggle__moon h-4 w-4 sm:h-5 sm:w-5" />
+        <SunIcon className="theme-toggle__sun h-[1.125rem] w-[1.125rem] sm:h-5 sm:w-5" />
+        <MoonIcon className="theme-toggle__moon h-[1.125rem] w-[1.125rem] sm:h-5 sm:w-5" />
       </span>
     </button>
   );

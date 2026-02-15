@@ -1416,6 +1416,11 @@ body {
 }
 
 @media (max-width: 767px) {
+  .modern-layout .theme-toggle__icon-wrap {
+    width: 1.125rem;
+    height: 1.125rem;
+  }
+
   .vaporwave .vaporwave-float--column,
   .vaporwave .vaporwave-float--statue {
     display: none;
@@ -1501,6 +1506,9 @@ body {
 }
 
 .theme-toggle__icon-wrap {
+  display: grid;
+  place-items: center;
+  line-height: 0;
   position: relative;
   z-index: 1;
   height: 1.25rem;
