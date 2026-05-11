@@ -15,6 +15,14 @@ const bodyFont = localFont({
 export const metadata: Metadata = {
   title: "Cayvon's Resume",
   description: "The personal resume of Cayvon Morady.",
+  robots: {
+    index: false,
+    follow: false,
+    googleBot: {
+      index: false,
+      follow: false,
+    },
+  },
   icons: {
     icon: [{ url: "/academic-cap.svg", type: "image/svg+xml" }],
     shortcut: ["/academic-cap.svg"],
