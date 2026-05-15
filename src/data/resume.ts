@@ -7,7 +7,7 @@ export const resumeData: ResumeSiteData = {
     currentCompany: "Twitch, Inc.",
   },
   summary:
-    "Technical Program Manager with a background in Information Systems and a history of achievement in the Marketing Technology space. I align Tech and non-Tech organizations, helping to ship high-impact initiatives from strategy through production.",
+    "Technical leader with a background in Information Systems and a track record of translating complex technology into business outcomes. Experienced operating at the intersection of engineering and business stakeholders — driving alignment, shaping solutions, and owning technical execution across multi-org programs. Hands-on contributor in agentic AI, cloud infrastructure, and marketing technology platforms.",
   experience: [
     {
       company: "Twitch, Inc.",
@@ -17,7 +17,7 @@ export const resumeData: ResumeSiteData = {
       highlights: [
         "Deployed Claude-powered agentic coding workflows (via Amazon Bedrock) across marketing technology operations, directly contributing to codebases in GitHub and AWS.",
         "Led a 4x increase in developer resourcing for MarTech by orchestrating a cross-functional partnership between Marketing and IT Systems Engineering.",
-        "Central coordinator for complex, multi-stakeholder programs spanning the migration of MarTech-owned sites and services to Amazon's internal code repository, TwitchCon's event-tech infrastructure, internationalization of the Twitch platform into new languages, and away-team engineering initiatives driving creator and viewer growth.",
+        "Served as technical lead for cross-functional stakeholders — running solution design sessions, evaluating third-party platform integrations, and translating engineering tradeoffs into business recommendations across programs spanning MarTech site migrations, TwitchCon event-tech infrastructure, platform internationalization, and creator and viewer growth initiatives.",
         "Expanded scope well beyond Marketing, serving as strategic TPM partner to multiple organizations across the company.",
       ],
     },
@@ -28,7 +28,7 @@ export const resumeData: ResumeSiteData = {
       end: "DEC 2023",
       highlights: [
         "Owned the MarTech customer lifecycle end-to-end, aligning technology solutions with company and organizational goals across Marketing, Product, and Data teams.",
-        "Built and maintained marketing workflow automation by directly engineering front-end solutions for MarTech-owned properties (Legal, Blog, CreatorCamp, TwitchCon), leveraging AI-assisted development before the mainstream adoption of agentic coding tools.",
+        "Built and maintained marketing workflow automation by directly engineering front-end solutions for MarTech-owned properties (Legal, Blog, CreatorCamp, TwitchCon), including integrating third-party APIs for CDPs, ad networks, and attribution platforms — owning data contracts and payload schemas between systems.",
         "Established sustainable operating models for ongoing site maintenance and continuous improvement across the MarTech portfolio.",
       ],
     },
@@ -62,31 +62,33 @@ export const resumeData: ResumeSiteData = {
     {
       category: "Program Management",
       items: [
-        "Multi-org program management",
-        "Process automation and optimization",
-        "Data-driven decision making",
-        "Technical program execution",
+        "Cross-functional stakeholder alignment",
+        "Solution design & technical scoping",
+        "Cross-org program delivery",
+        "Process automation & workflow design",
       ],
     },
     {
       category: "Technical",
       items: [
-        "Agentic coding workflows",
-        "Amazon Bedrock",
-        "AWS Suite",
-        "Git",
-        "React",
+        "API integration & authentication",
+        "Webhook & data contract design",
         "SQL",
+        "React",
+        "Hugo",
+        "Tailwind CSS",
+        "Git",
+        "AWS Suite",
+        "Agentic coding workflows",
       ],
     },
     {
       category: "Growth & Measurement",
       items: [
-        "Performance marketing & attribution",
-        "Budget optimization & ROI",
-        "Experimentation & incrementality",
+        "Experimentation & incrementality testing",
         "KPI framework development",
-        "Data analysis",
+        "Business value translation",
+        "Data analysis & reporting",
       ],
     },
   ],

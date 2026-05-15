@@ -76,14 +76,8 @@ export default function Home() {
                     <p className="vaporwave-name font-display text-4xl font-semibold text-fg sm:text-5xl">
                       Cayvon Morady
                     </p>
-                    <p className="vaporwave-subline text-xs font-semibold uppercase tracking-[0.4em] text-muted">
-                      2026 Resume
-                      <span className="vaporwave-only-label">
-                        {" // Neon District Build"}
-                      </span>
-                    </p>
                     <h1
-                      className="vaporwave-glitch-title font-display text-3xl font-semibold text-fg sm:text-4xl"
+                      className="vaporwave-glitch-title font-display text-2xl font-semibold text-fg sm:text-3xl"
                       data-text={resumeData.headline.currentTitle}
                     >
                       {resumeData.headline.currentTitle}
