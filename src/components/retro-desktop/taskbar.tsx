@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import type { ReactNode } from "react";
 import { BeveledButton } from "@/components/retro-desktop/controls/beveled-button";
 import type { DesktopWindowId, WindowState } from "@/components/retro-desktop/types";
 
@@ -16,7 +15,6 @@ type TaskbarProps = {
   onToggleSound: () => void;
   crtEnabled: boolean;
   onToggleCrt: () => void;
-  trayThemeToggle: ReactNode;
 };
 
 const START_MENU_WINDOW_ITEMS: Array<{ id: DesktopWindowId; label: string }> = [
@@ -49,7 +47,6 @@ export function Taskbar({
   onToggleSound,
   crtEnabled,
   onToggleCrt,
-  trayThemeToggle,
 }: TaskbarProps) {
   const [clockLabel, setClockLabel] = useState(() => getClockLabel(new Date()));
   const startMenuRef = useRef<HTMLDivElement | null>(null);
@@ -166,7 +163,6 @@ export function Taskbar({
         <BeveledButton className="retro-taskbar-mini-btn" onClick={onToggleCrt}>
           {crtEnabled ? "CRT ON" : "CRT OFF"}
         </BeveledButton>
-        <div className="retro-taskbar-theme-toggle">{trayThemeToggle}</div>
         <div className="retro-taskbar-clock">{clockLabel}</div>
       </div>
     </footer>

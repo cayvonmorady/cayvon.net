@@ -3,6 +3,11 @@ import localFont from "next/font/local";
 import "./globals.css";
 import "./retro-desktop.css";
 import { Providers } from "./providers";
+import { Geist } from "next/font/google";
+import { cn } from "@/lib/utils";
+import { VideoBackground } from "@/components/video-background";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const bodyFont = localFont({
   src: "./fonts/GoogleSansFlex-Variable.ttf",
@@ -35,11 +40,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning className="scroll-smooth">
+    <html lang="en" suppressHydrationWarning className={cn("scroll-smooth", "font-sans", geist.variable)}>
       <body
         className={`${bodyFont.variable} min-h-screen bg-bg text-fg antialiased`}
       >
-        <Providers>{children}</Providers>
+        <Providers>
+          <VideoBackground />
+          {children}
+        </Providers>
       </body>
     </html>
   );

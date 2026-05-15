@@ -6,8 +6,8 @@ Personal resume site built with Next.js 16, React 19, TypeScript, and Tailwind C
 
 The site has two rendering modes toggled at runtime via `RetroModeProvider`:
 
-- **Default** — a standard resume layout (`src/app/page.tsx`) with data-driven sections pulled from `src/data/resume.ts`
-- **Retro Desktop** — a fully interactive Windows 9x-style desktop shell rendered in the same page
+- **Default** - a standard resume layout (`src/app/page.tsx`) with data-driven sections pulled from `src/data/resume.ts`
+- **Retro Desktop** - a fully interactive Windows 9x-style desktop shell rendered in the same page
 
 The retro mode is the more complex surface; the standard mode is intentionally thin.
 
@@ -17,32 +17,32 @@ The retro mode is the more complex surface; the standard mode is intentionally t
 
 Custom hook that owns all window state. Notable design decisions:
 
-- **z-index via monotonic counter** — `zCounterRef` increments on every focus rather than reordering an array, so z-index is always correct without sorting
-- **Ref-based constraints** — viewport bounds and taskbar height are kept in a `constraintsRef` so pointer-move handlers always read current values without being re-created on resize
-- **Clamp on every mutation** — `clampWindow` enforces workspace bounds and a `MIN_VISIBLE_TITLEBAR_PX` guarantee on every state write (open, drag, resize, maximize, viewport resize), keeping windows recoverable rather than escapable
-- **Restore rects** — pre-maximize geometry is stashed in a ref so unmaximize is an exact restore
-- **Reference-stable callbacks** — all returned functions are wrapped in `useCallback`; `windowList` and `taskbarWindows` are memoized so downstream components only re-render when window state actually changes
+- **z-index via monotonic counter** - `zCounterRef` increments on every focus rather than reordering an array, so z-index is always correct without sorting
+- **Ref-based constraints** - viewport bounds and taskbar height are kept in a `constraintsRef` so pointer-move handlers always read current values without being re-created on resize
+- **Clamp on every mutation** - `clampWindow` enforces workspace bounds and a `MIN_VISIBLE_TITLEBAR_PX` guarantee on every state write (open, drag, resize, maximize, viewport resize), keeping windows recoverable rather than escapable
+- **Restore rects** - pre-maximize geometry is stashed in a ref so unmaximize is an exact restore
+- **Reference-stable callbacks** - all returned functions are wrapped in `useCallback`; `windowList` and `taskbarWindows` are memoized so downstream components only re-render when window state actually changes
 
 ### Sound engine (`src/components/retro-desktop/sound.ts`)
 
-Synthesized retro sounds using the Web Audio API — no audio files. `AudioContext` is lazy-initialized on first user gesture to satisfy browser autoplay policy. Each sound event (`click`, `open`, `close`, `error`) is a short composition of `OscillatorNode` tones scheduled via `AudioContext.currentTime` offsets.
+Synthesized retro sounds using the Web Audio API - no audio files. `AudioContext` is lazy-initialized on first user gesture to satisfy browser autoplay policy. Each sound event (`click`, `open`, `close`, `error`) is a short composition of `OscillatorNode` tones scheduled via `AudioContext.currentTime` offsets.
 
 ### Drag implementation
 
-Drag state is not kept in React state — it captures pointer origin at `pointerdown`, then `pointermove` handlers compute deltas from that origin and call `setWindows` directly. This avoids stale-closure issues on position and keeps the hot path outside React's event system.
+Drag state is not kept in React state - it captures pointer origin at `pointerdown`, then `pointermove` handlers compute deltas from that origin and call `setWindows` directly. This avoids stale-closure issues on position and keeps the hot path outside React's event system.
 
 ### Theme system
 
 Two independent concerns composed together:
 
-- **Light/dark** — `next-themes` with `ThemeProvider` in `src/app/providers.tsx`
-- **Retro mode** — `RetroModeProvider` wraps `ThemeProvider` and injects `retro-desktop.css` on activation
+- **Light/dark** - `next-themes` with `ThemeProvider` in `src/app/providers.tsx`
+- **Retro mode** - `RetroModeProvider` wraps `ThemeProvider` and injects `retro-desktop.css` on activation
 
 CSS is Tailwind v4 with design tokens defined as custom properties in `globals.css`.
 
 ### Data / types
 
-All resume content lives in `src/data/resume.ts` and is typed against `src/types/resume.ts`. The page components are pure presentational — no fetching, no state.
+All resume content lives in `src/data/resume.ts` and is typed against `src/types/resume.ts`. The page components are pure presentational - no fetching, no state.
 
 ## Project structure
 

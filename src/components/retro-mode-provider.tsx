@@ -10,12 +10,11 @@ import {
   useState,
 } from "react";
 
-type SpecialMode = "none" | "retro" | "vaporwave";
+type SpecialMode = "none" | "retro";
 
 type RetroModeContextValue = {
   mode: SpecialMode;
   isRetro: boolean;
-  isVaporwave: boolean;
   isSpecialMode: boolean;
   deactivateMode: () => void;
 };
@@ -26,7 +25,6 @@ const RetroModeContext = createContext<RetroModeContextValue | undefined>(
 
 const SECRET_MODES = [
   { word: "retro", mode: "retro" },
-  { word: "vaporwave", mode: "vaporwave" },
 ] as const;
 const ARM_WINDOW_MS = 5000;
 
@@ -65,14 +63,14 @@ export function RetroModeProvider({ children }: { children: React.ReactNode }) {
 
   useEffect(() => {
     const root = document.documentElement;
-    root.classList.remove("retro", "vaporwave");
+    root.classList.remove("retro");
 
     if (mode !== "none") {
       root.classList.add(mode);
     }
 
     return () => {
-      root.classList.remove("retro", "vaporwave");
+      root.classList.remove("retro");
     };
   }, [mode]);
 
@@ -143,18 +141,16 @@ export function RetroModeProvider({ children }: { children: React.ReactNode }) {
   }, [clearArmWindow]);
 
   const isRetro = mode === "retro";
-  const isVaporwave = mode === "vaporwave";
   const isSpecialMode = mode !== "none";
 
   const contextValue = useMemo(
     () => ({
       mode,
       isRetro,
-      isVaporwave,
       isSpecialMode,
       deactivateMode,
     }),
-    [deactivateMode, isRetro, isSpecialMode, isVaporwave, mode],
+    [deactivateMode, isRetro, isSpecialMode, mode],
   );
 
   return (

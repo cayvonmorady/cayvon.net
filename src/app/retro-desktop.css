@@ -553,13 +553,6 @@
   border-bottom-color: #fff;
 }
 
-.retro .retro-taskbar-theme-toggle .theme-toggle {
-  min-width: 24px;
-  min-height: 22px;
-  border-radius: 0;
-  padding: 2px;
-}
-
 .retro .retro-taskbar-clock {
   min-width: 58px;
   text-align: center;

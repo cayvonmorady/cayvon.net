@@ -10,7 +10,6 @@ import {
   type PointerEvent as ReactPointerEvent,
 } from "react";
 import Image from "next/image";
-import { ThemeToggle } from "@/components/theme-toggle";
 import { useRetroMode } from "@/components/retro-mode-provider";
 import { resumeData } from "@/data/resume";
 import { BootSplash } from "@/components/retro-desktop/boot-splash";
@@ -705,7 +704,6 @@ export function RetroDesktopShell() {
           setCrtEnabled((prev) => !prev);
           playSound("click");
         }}
-        trayThemeToggle={<ThemeToggle />}
       />
 
       {shouldShowBoot ? <BootSplash durationMs={3500} onComplete={handleBootComplete} /> : null}
