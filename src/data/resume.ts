@@ -7,7 +7,7 @@ export const resumeData: ResumeSiteData = {
     currentCompany: "Twitch, Inc.",
   },
   summary:
-    "Technical program manager and API integration specialist with 9+ years bridging engineering and enterprise stakeholders. Experienced owning data contracts, webhook architectures, and third-party platform evaluations across complex, multi-system environments. Proven ability to translate technical tradeoffs into business decisions and drive adoption across large organizations — the core of pre-sales SE work.",
+    "Technical program manager with 9+ years bridging engineering and enterprise stakeholders. Experienced owning data contracts, webhook architectures, and third-party platform evaluations across complex, multi-system environments. Known for a data-first discovery approach — asking the right questions to surface edge cases and unstated requirements before they become failures. Proven ability to build working prototypes and demos to drive stakeholder alignment, and to translate technical tradeoffs into business decisions across large organizations.",
   experience: [
     {
       company: "Twitch, Inc.",
@@ -15,7 +15,8 @@ export const resumeData: ResumeSiteData = {
       start: "DEC 2023",
       end: "CURRENT",
       highlights: [
-        "Served as technical lead for enterprise-scale cross-functional programs — running solution design sessions, evaluating third-party platform integrations, and translating engineering tradeoffs into business recommendations for executive stakeholders.",
+        "Served as technical lead for enterprise-scale cross-functional programs — running solution design sessions, surfacing data edge cases and unstated requirements that redirected program scope, and translating engineering tradeoffs into business recommendations for executive stakeholders.",
+        "Built internal proof-of-concept demos to drive product decisions without committing engineering resources — including interactive prototypes simulating Twitch chat badge and emote rendering, and a clip-discovery tool surfacing content based on user input.",
         "Deployed agentic coding workflows via Claude and Amazon Bedrock; contributed directly to codebases in GitHub and AWS, maintaining hands-on technical depth across the MarTech stack.",
       ],
     },
@@ -25,7 +26,8 @@ export const resumeData: ResumeSiteData = {
       start: "MAY 2021",
       end: "DEC 2023",
       highlights: [
-        "Owned end-to-end API integrations with CDPs, ad networks, and attribution platforms — designing data contracts, payload schemas, and webhook architectures between systems.",
+        "Owned end-to-end API integrations with CDPs, ad networks, and attribution platforms — designing data contracts, payload schemas, and webhook architectures between systems; identified and resolved codebase issues in partner teams during cross-functional solutioning.",
+        "Built a working demo replacing the team's reliance on the blog for product update distribution — consuming a JSON feed from an API endpoint to dynamically populate a standalone front-end surface, which became the adopted solution.",
         "Engineered front-end solutions for MarTech-owned properties (Legal, Blog, CreatorCamp, TwitchCon) and led ongoing platform migrations; primary technical point of contact across Marketing, Product, and Data teams.",
       ],
     },
@@ -52,15 +54,6 @@ export const resumeData: ResumeSiteData = {
   ],
   skills: [
     {
-      category: "Program Management",
-      items: [
-        "Cross-functional stakeholder alignment",
-        "Solution design & technical scoping",
-        "Cross-org program delivery",
-        "Process automation & workflow design",
-      ],
-    },
-    {
       category: "Technical",
       items: [
         "API integration & authentication",
@@ -72,16 +65,28 @@ export const resumeData: ResumeSiteData = {
         "Tailwind CSS",
         "Git",
         "AWS",
-        "Agentic coding workflows",
+        "Agentic coding workflows (Claude, Bedrock)",
+      ],
+    },
+    {
+      category: "Pre-Sales Adjacent",
+      items: [
+        "Solution design & scoping",
+        "Discovery & requirements elicitation",
+        "POC & demo development",
+        "Third-party platform evaluation",
+        "Engineering-to-business translation",
+        "Cross-functional stakeholder alignment",
+        "RFP-style business case development",
       ],
     },
     {
       category: "Analysis",
       items: [
-        "Experimentation & incrementality testing",
         "KPI framework development",
-        "Business value translation",
+        "Incrementality & experimentation",
         "Data analysis & reporting",
+        "Business value quantification",
       ],
     },
   ],
