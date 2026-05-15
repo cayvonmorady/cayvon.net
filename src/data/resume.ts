@@ -65,6 +65,7 @@ export const resumeData: ResumeSiteData = {
       items: [
         "API integration & authentication",
         "Webhook & data contract design",
+        "Postman",
         "SQL",
         "React",
         "Hugo",
