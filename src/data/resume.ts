@@ -7,7 +7,7 @@ export const resumeData: ResumeSiteData = {
     currentCompany: "Twitch, Inc.",
   },
   summary:
-    "Technical leader with a background in Information Systems and a track record of translating complex technology into business outcomes. Experienced operating at the intersection of engineering and business stakeholders — driving alignment, shaping solutions, and owning technical execution across multi-org programs. Hands-on contributor in agentic AI, cloud infrastructure, and marketing technology platforms.",
+    "Technical program manager and API integration specialist with 9+ years bridging engineering and enterprise stakeholders. Experienced owning data contracts, webhook architectures, and third-party platform evaluations across complex, multi-system environments. Proven ability to translate technical tradeoffs into business decisions and drive adoption across large organizations — the core of pre-sales SE work.",
   experience: [
     {
       company: "Twitch, Inc.",
@@ -15,10 +15,8 @@ export const resumeData: ResumeSiteData = {
       start: "DEC 2023",
       end: "CURRENT",
       highlights: [
-        "Deployed Claude-powered agentic coding workflows (via Amazon Bedrock) across marketing technology operations, directly contributing to codebases in GitHub and AWS.",
-        "Led a 4x increase in developer resourcing for MarTech by orchestrating a cross-functional partnership between Marketing and IT Systems Engineering.",
-        "Served as technical lead for cross-functional stakeholders — running solution design sessions, evaluating third-party platform integrations, and translating engineering tradeoffs into business recommendations across programs spanning MarTech site migrations, TwitchCon event-tech infrastructure, platform internationalization, and creator and viewer growth initiatives.",
-        "Expanded scope well beyond Marketing, serving as strategic TPM partner to multiple organizations across the company.",
+        "Served as technical lead for enterprise-scale cross-functional programs — running solution design sessions, evaluating third-party platform integrations, and translating engineering tradeoffs into business recommendations for executive stakeholders.",
+        "Deployed agentic coding workflows via Claude and Amazon Bedrock; contributed directly to codebases in GitHub and AWS, maintaining hands-on technical depth across the MarTech stack.",
       ],
     },
     {
@@ -27,9 +25,8 @@ export const resumeData: ResumeSiteData = {
       start: "MAY 2021",
       end: "DEC 2023",
       highlights: [
-        "Owned the MarTech customer lifecycle end-to-end, aligning technology solutions with company and organizational goals across Marketing, Product, and Data teams.",
-        "Built and maintained marketing workflow automation by directly engineering front-end solutions for MarTech-owned properties (Legal, Blog, CreatorCamp, TwitchCon), including integrating third-party APIs for CDPs, ad networks, and attribution platforms — owning data contracts and payload schemas between systems.",
-        "Established sustainable operating models for ongoing site maintenance and continuous improvement across the MarTech portfolio.",
+        "Owned end-to-end API integrations with CDPs, ad networks, and attribution platforms — designing data contracts, payload schemas, and webhook architectures between systems.",
+        "Engineered front-end solutions for MarTech-owned properties (Legal, Blog, CreatorCamp, TwitchCon) and led ongoing platform migrations; primary technical point of contact across Marketing, Product, and Data teams.",
       ],
     },
     {
@@ -38,10 +35,8 @@ export const resumeData: ResumeSiteData = {
       start: "AUG 2019",
       end: "MAY 2021",
       highlights: [
-        "Led user acquisition and re-engagement campaigns across US and international markets, managing performance measurement for next-gen viewer growth.",
-        "Co-developed marketing performance goals and KPI frameworks with Data Science, validated by Twitch's executive suite including the CMO.",
-        "Drove incrementality-informed budget allocation decisions across channels to optimize spend efficiency.",
-        "Recipient of Twitch's Applause Award and Lifetime Applause Award for exemplary impact.",
+        "Co-developed KPI frameworks and incrementality-based measurement models with Data Science, validated by executive leadership including the CMO — translating analytical outputs into budget allocation strategy across US and international markets.",
+        "Led viewer acquisition programs spanning multiple channels; drove incrementality-informed decisions to optimize spend efficiency at scale.",
       ],
     },
     {
@@ -50,11 +45,8 @@ export const resumeData: ResumeSiteData = {
       start: "FEB 2016",
       end: "MAY 2019",
       highlights: [
-        "Managed $15M+ in annual marketing spend across major clients including Hulu, Apple, Twitch, Expedia, and Uber Eats.",
-        "Led the transition from siloed per-client buying to a holistic vendor management strategy, improving spend efficiency and partner coordination.",
-        "Built fraud analysis systems and validation processes alongside Data Science to protect measurement integrity.",
-        "Developed partner onboarding governance and quality standards.",
-        "Conducted independent data analysis to inform budget allocation and campaign optimization.",
+        "Managed $15M+ in annual spend across major enterprise clients including Hulu, Apple, Twitch, Expedia, and Uber Eats — serving as the technical and analytical point of contact for campaign architecture and optimization.",
+        "Built fraud analysis systems and measurement validation processes alongside Data Science; developed partner onboarding governance to protect data integrity across the portfolio.",
       ],
     },
   ],
@@ -78,12 +70,12 @@ export const resumeData: ResumeSiteData = {
         "Hugo",
         "Tailwind CSS",
         "Git",
-        "AWS Suite",
+        "AWS",
         "Agentic coding workflows",
       ],
     },
     {
-      category: "Growth & Measurement",
+      category: "Analysis",
       items: [
         "Experimentation & incrementality testing",
         "KPI framework development",
